@@ -16,71 +16,83 @@
     ::-webkit-scrollbar-thumb{background:#333;border-radius:3px}
     ::-webkit-scrollbar-thumb:hover{background:#555}
 
-    /* ===== CUSTOM CURSOR ===== */
     .cursor-dot{position:fixed;width:8px;height:8px;background:#ef4444;border-radius:50%;pointer-events:none;z-index:9999;transition:transform .1s;mix-blend-mode:difference}
     .cursor-ring{position:fixed;width:40px;height:40px;border:1.5px solid rgba(239,68,68,0.5);border-radius:50%;pointer-events:none;z-index:9998;transition:all .15s ease-out}
     .cursor-ring.hover{width:60px;height:60px;border-color:rgba(239,68,68,0.8);background:rgba(239,68,68,0.05)}
-    .cursor-trail{position:fixed;width:4px;height:4px;background:rgba(239,68,68,0.3);border-radius:50%;pointer-events:none;z-index:9997;transition:opacity .4s}
     .cursor-glow{position:fixed;width:200px;height:200px;background:radial-gradient(circle,rgba(239,68,68,0.06),transparent 70%);border-radius:50%;pointer-events:none;z-index:9996;transition:transform .08s linear}
 
-    /* ===== 3D CUBE ===== */
-    .cube-wrapper{perspective:800px;width:260px;height:260px}
-    .cube-3d{width:100%;height:100%;position:relative;transform-style:preserve-3d;animation:cubeRotate 12s linear infinite}
-    @keyframes cubeRotate{0%{transform:rotateX(-20deg) rotateY(0deg)}100%{transform:rotateX(-20deg) rotateY(360deg)}}
-    .cube-face{position:absolute;width:260px;height:260px;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:16px;backface-visibility:visible;overflow:hidden}
-    .cube-face-front{transform:rotateY(0deg) translateZ(130px)}
-    .cube-face-back{transform:rotateY(180deg) translateZ(130px)}
-    .cube-face-right{transform:rotateY(90deg) translateZ(130px)}
-    .cube-face-left{transform:rotateY(-90deg) translateZ(130px)}
-    .cube-face-top{transform:rotateX(90deg) translateZ(130px)}
-    .cube-face-bottom{transform:rotateX(-90deg) translateZ(130px)}
+    /* ===== 3D CUBE — FIXED 360° ===== */
+    .cube-scene{perspective:900px;width:280px;height:280px}
+    .cube-3d{width:100%;height:100%;position:relative;transform-style:preserve-3d}
+    .cube-3d.auto-rotate{animation:cubeRotate360 14s linear infinite}
+    @keyframes cubeRotate360{
+      0%{transform:rotateX(-18deg) rotateY(0deg)}
+      25%{transform:rotateX(-10deg) rotateY(90deg)}
+      50%{transform:rotateX(-18deg) rotateY(180deg)}
+      75%{transform:rotateX(-10deg) rotateY(270deg)}
+      100%{transform:rotateX(-18deg) rotateY(360deg)}
+    }
+    .cube-face{position:absolute;width:280px;height:280px;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:18px;backface-visibility:visible}
+    .cf-front{transform:rotateY(0deg) translateZ(140px)}
+    .cf-back{transform:rotateY(180deg) translateZ(140px)}
+    .cf-right{transform:rotateY(90deg) translateZ(140px)}
+    .cf-left{transform:rotateY(-90deg) translateZ(140px)}
+    .cf-top{transform:rotateX(90deg) translateZ(140px)}
+    .cf-bottom{transform:rotateX(-90deg) translateZ(140px)}
+    .fb1{background:linear-gradient(135deg,rgba(239,68,68,0.15),rgba(239,68,68,0.03));border:1px solid rgba(239,68,68,0.25);box-shadow:inset 0 0 50px rgba(239,68,68,0.06),0 0 30px rgba(239,68,68,0.08)}
+    .fb2{background:linear-gradient(135deg,rgba(59,130,246,0.15),rgba(59,130,246,0.03));border:1px solid rgba(59,130,246,0.25);box-shadow:inset 0 0 50px rgba(59,130,246,0.06),0 0 30px rgba(59,130,246,0.08)}
+    .fb3{background:linear-gradient(135deg,rgba(168,85,247,0.15),rgba(168,85,247,0.03));border:1px solid rgba(168,85,247,0.25);box-shadow:inset 0 0 50px rgba(168,85,247,0.06),0 0 30px rgba(168,85,247,0.08)}
+    .fb4{background:linear-gradient(135deg,rgba(34,197,94,0.15),rgba(34,197,94,0.03));border:1px solid rgba(34,197,94,0.25);box-shadow:inset 0 0 50px rgba(34,197,94,0.06),0 0 30px rgba(34,197,94,0.08)}
+    .fb5{background:linear-gradient(135deg,rgba(251,191,36,0.15),rgba(251,191,36,0.03));border:1px solid rgba(251,191,36,0.25);box-shadow:inset 0 0 50px rgba(251,191,36,0.06),0 0 30px rgba(251,191,36,0.08)}
+    .fb6{background:linear-gradient(135deg,rgba(236,72,153,0.15),rgba(236,72,153,0.03));border:1px solid rgba(236,72,153,0.25);box-shadow:inset 0 0 50px rgba(236,72,153,0.06),0 0 30px rgba(236,72,153,0.08)}
+    .face-icon{font-size:40px;margin-bottom:12px;filter:drop-shadow(0 0 12px currentColor)}
+    .face-title{font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;letter-spacing:-0.02em}
+    .face-sub{font-size:11px;color:rgba(255,255,255,0.45);margin-top:5px;letter-spacing:0.08em;text-transform:uppercase}
+    .face-tags{display:flex;gap:6px;margin-top:14px;flex-wrap:wrap;justify-content:center}
+    .face-tag{font-size:9px;padding:4px 10px;border-radius:8px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.7);letter-spacing:0.03em;transition:all .3s}
+    .face-tag:hover{background:rgba(255,255,255,0.12);color:#fff}
+    .cube-glow{position:absolute;width:360px;height:360px;border-radius:50%;opacity:0.2;animation:spin-slow 8s linear infinite}
+    .cube-glow::before{content:'';position:absolute;inset:0;border-radius:50%;background:conic-gradient(from 0deg,#ef4444,#3b82f6,#a855f7,#22c55e,#fbbf24,#ef4444);filter:blur(25px)}
+    .cube-orbit{position:absolute;width:420px;height:420px;border:1px solid rgba(255,255,255,0.04);border-radius:50%;animation:spin-slow 30s linear infinite}
+    .cube-orbit-dot{position:absolute;width:8px;height:8px;background:#ef4444;border-radius:50%;box-shadow:0 0 15px rgba(239,68,68,0.8),0 0 30px rgba(239,68,68,0.4);top:-4px;left:50%;margin-left:-4px}
 
-    .face-bg-1{background:linear-gradient(135deg,rgba(239,68,68,0.12),rgba(239,68,68,0.03));border:1px solid rgba(239,68,68,0.2);box-shadow:inset 0 0 40px rgba(239,68,68,0.05)}
-    .face-bg-2{background:linear-gradient(135deg,rgba(59,130,246,0.12),rgba(59,130,246,0.03));border:1px solid rgba(59,130,246,0.2);box-shadow:inset 0 0 40px rgba(59,130,246,0.05)}
-    .face-bg-3{background:linear-gradient(135deg,rgba(168,85,247,0.12),rgba(168,85,247,0.03));border:1px solid rgba(168,85,247,0.2);box-shadow:inset 0 0 40px rgba(168,85,247,0.05)}
-    .face-bg-4{background:linear-gradient(135deg,rgba(34,197,94,0.12),rgba(34,197,94,0.03));border:1px solid rgba(34,197,94,0.2);box-shadow:inset 0 0 40px rgba(34,197,94,0.05)}
-    .face-bg-5{background:linear-gradient(135deg,rgba(251,191,36,0.12),rgba(251,191,36,0.03));border:1px solid rgba(251,191,36,0.2);box-shadow:inset 0 0 40px rgba(251,191,36,0.05)}
-    .face-bg-6{background:linear-gradient(135deg,rgba(236,72,153,0.12),rgba(236,72,153,0.03));border:1px solid rgba(236,72,153,0.2);box-shadow:inset 0 0 40px rgba(236,72,153,0.05)}
-
-    .face-icon{font-size:36px;margin-bottom:10px}
-    .face-title{font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;letter-spacing:-0.02em}
-    .face-sub{font-size:11px;color:rgba(255,255,255,0.5);margin-top:4px;letter-spacing:0.05em;text-transform:uppercase}
-    .face-tags{display:flex;gap:6px;margin-top:12px;flex-wrap:wrap;justify-content:center}
-    .face-tag{font-size:9px;padding:3px 8px;border-radius:6px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);color:rgba(255,255,255,0.6);letter-spacing:0.03em}
-
-    /* Cube glow ring */
-    .cube-glow{position:absolute;width:320px;height:320px;border-radius:50%;opacity:0.15;animation:cubeGlowSpin 8s linear infinite}
-    @keyframes cubeGlowSpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
-    .cube-glow::before{content:'';position:absolute;inset:0;border-radius:50%;background:conic-gradient(from 0deg,#ef4444,#3b82f6,#a855f7,#22c55e,#fbbf24,#ef4444);filter:blur(20px)}
-    .cube-orbit{position:absolute;width:380px;height:380px;border:1px solid rgba(255,255,255,0.04);border-radius:50%;animation:spin-slow 30s linear infinite}
-    .cube-orbit-dot{position:absolute;width:6px;height:6px;background:#ef4444;border-radius:50%;box-shadow:0 0 10px rgba(239,68,68,0.6);animation:spin-reverse 8s linear infinite}
-
-    /* ===== KEYFRAMES ===== */
+    /* ===== 3D SLIDE ANIMATIONS ===== */
+    @keyframes slideIn3D-Up{from{opacity:0;transform:perspective(1200px) rotateX(-12deg) translateY(80px) scale(0.95)}to{opacity:1;transform:perspective(1200px) rotateX(0deg) translateY(0) scale(1)}}
+    @keyframes slideIn3D-Down{from{opacity:0;transform:perspective(1200px) rotateX(12deg) translateY(-80px) scale(0.95)}to{opacity:1;transform:perspective(1200px) rotateX(0deg) translateY(0) scale(1)}}
+    @keyframes slideIn3D-Left{from{opacity:0;transform:perspective(1200px) rotateY(12deg) translateX(100px) scale(0.95)}to{opacity:1;transform:perspective(1200px) rotateY(0deg) translateX(0) scale(1)}}
+    @keyframes slideIn3D-Right{from{opacity:0;transform:perspective(1200px) rotateY(-12deg) translateX(-100px) scale(0.95)}to{opacity:1;transform:perspective(1200px) rotateY(0deg) translateX(0) scale(1)}}
+    @keyframes slideIn3D-Scale{from{opacity:0;transform:perspective(1200px) rotateX(5deg) rotateY(-5deg) scale(0.8)}to{opacity:1;transform:perspective(1200px) rotateX(0) rotateY(0) scale(1)}}
+    @keyframes flipInX{from{opacity:0;transform:perspective(800px) rotateX(-90deg)}to{opacity:1;transform:perspective(800px) rotateX(0)}}
     @keyframes reveal{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
-    @keyframes reveal-left{from{opacity:0;transform:translateX(-40px)}to{opacity:1;transform:translateX(0)}}
-    @keyframes reveal-right{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:translateX(0)}}
-    @keyframes reveal-scale{from{opacity:0;transform:scale(0.9)}to{opacity:1;transform:scale(1)}}
     @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
     @keyframes float-slow{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-8px) rotate(2deg)}}
     @keyframes spin-slow{from{rotate:0deg}to{rotate:360deg}}
     @keyframes spin-reverse{from{rotate:360deg}to{rotate:0deg}}
-    @keyframes pulse-ring{0%{transform:scale(1);opacity:0.4}100%{transform:scale(1.5);opacity:0}}
-    @keyframes scan-vertical{0%{top:0%;opacity:0}10%{opacity:1}90%{opacity:1}100%{top:100%;opacity:0}}
+    @keyframes pulse-ring{0%{transform:scale(1);opacity:0.4}100%{transform:scale(1.6);opacity:0}}
+    @keyframes scan-vertical{0%{top:-10%;opacity:0}10%{opacity:1}90%{opacity:1}100%{top:110%;opacity:0}}
     @keyframes bounce-down{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
     @keyframes pulse-dot{0%,100%{opacity:1}50%{opacity:0.4}}
     @keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
-    @keyframes tilt-3d{0%,100%{transform:perspective(800px) rotateY(-5deg) rotateX(3deg)}50%{transform:perspective(800px) rotateY(5deg) rotateX(-3deg)}}
-    @keyframes glow-pulse{0%,100%{box-shadow:0 0 20px rgba(239,68,68,0.1)}50%{box-shadow:0 0 40px rgba(239,68,68,0.3)}}
+    @keyframes glow-pulse{0%,100%{box-shadow:0 0 20px rgba(239,68,68,0.1)}50%{box-shadow:0 0 50px rgba(239,68,68,0.35)}}
     @keyframes rain-fall{0%{transform:translateY(-10px);opacity:0}50%{opacity:1}100%{transform:translateY(60px);opacity:0}}
     @keyframes music-wave{0%,100%{height:8px}50%{height:24px}}
-    @keyframes cart-bounce{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
+    @keyframes cart-bounce{0%,100%{transform:scale(1)}50%{transform:scale(1.15)}}
     @keyframes bot-pulse{0%,100%{opacity:0.6}50%{opacity:1}}
     @keyframes quiz-glow{0%,100%{text-shadow:0 0 8px rgba(251,191,36,0.3)}50%{text-shadow:0 0 20px rgba(251,191,36,0.6)}}
-    @keyframes text-flicker{0%,100%{opacity:1}50%{opacity:0.97}}
     @keyframes border-flow{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
-    @keyframes float-particle{0%,100%{transform:translate(0,0) scale(1);opacity:0.3}25%{transform:translate(10px,-15px) scale(1.2);opacity:0.6}50%{transform:translate(-5px,-25px) scale(0.8);opacity:0.4}75%{transform:translate(15px,-10px) scale(1.1);opacity:0.5}}
-    @keyframes type-writer{from{width:0}to{width:100%}}
-    @keyframes blink-caret{0%,100%{border-color:#ef4444}50%{border-color:transparent}}
+    @keyframes float-particle{0%,100%{transform:translate(0,0) scale(1);opacity:0.3}25%{transform:translate(15px,-20px) scale(1.3);opacity:0.6}50%{transform:translate(-8px,-35px) scale(0.8);opacity:0.4}75%{transform:translate(20px,-15px) scale(1.1);opacity:0.5}}
+    @keyframes text-shimmer{0%{background-position:-200% center}100%{background-position:200% center}}
+    @keyframes geo-float-1{0%,100%{transform:translate(0,0) rotate(0deg);opacity:0.03}50%{transform:translate(30px,-40px) rotate(180deg);opacity:0.07}}
+    @keyframes geo-float-2{0%,100%{transform:translate(0,0) rotate(45deg);opacity:0.03}50%{transform:translate(-25px,30px) rotate(225deg);opacity:0.06}}
+    @keyframes geo-float-3{0%,100%{transform:translate(0,0) rotate(90deg);opacity:0.02}50%{transform:translate(20px,25px) rotate(270deg);opacity:0.05}}
+    @keyframes profile-tilt{0%,100%{transform:perspective(800px) rotateY(-8deg) rotateX(4deg)}25%{transform:perspective(800px) rotateY(8deg) rotateX(-2deg)}50%{transform:perspective(800px) rotateY(-4deg) rotateX(6deg)}75%{transform:perspective(800px) rotateY(6deg) rotateX(-4deg)}}
+    @keyframes profile-ring-spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+    @keyframes profile-glow{0%,100%{box-shadow:0 0 30px rgba(239,68,68,0.15),0 0 60px rgba(59,130,246,0.08)}50%{box-shadow:0 0 50px rgba(239,68,68,0.3),0 0 100px rgba(59,130,246,0.15)}}
+    @keyframes orbit-dot{from{transform:rotate(0deg) translateX(160px) rotate(0deg)}to{transform:rotate(360deg) translateX(160px) rotate(-360deg)}}
+    @keyframes section-bg-shift{0%,100%{opacity:0.02}50%{opacity:0.06}}
+    @keyframes card-enter-left{from{opacity:0;transform:perspective(1000px) rotateY(15deg) translateX(-60px)}to{opacity:1;transform:perspective(1000px) rotateY(0) translateX(0)}}
+    @keyframes card-enter-right{from{opacity:0;transform:perspective(1000px) rotateY(-15deg) translateX(60px)}to{opacity:1;transform:perspective(1000px) rotateY(0) translateX(0)}}
+    @keyframes card-enter-bottom{from{opacity:0;transform:perspective(1000px) rotateX(10deg) translateY(50px)}to{opacity:1;transform:perspective(1000px) rotateX(0) translateY(0)}}
 
     .anim-reveal{opacity:0;animation:reveal 0.8s cubic-bezier(0.16,1,0.3,1) forwards}
     .anim-d1{animation-delay:.1s}.anim-d2{animation-delay:.2s}.anim-d3{animation-delay:.3s}
@@ -90,16 +102,14 @@
     .bounce-down{animation:bounce-down 1.5s ease-in-out infinite}
     .pulse-dot{animation:pulse-dot 2s cubic-bezier(0.4,0,0.6,1) infinite}
     .float{animation:float 6s ease-in-out infinite}
-    .float-slow{animation:float-slow 8s ease-in-out infinite}
 
     .gradient-text{background:linear-gradient(135deg,#ef4444,#dc2626,#991b1b);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
     .gradient-text-gold{background:linear-gradient(135deg,#fbbf24,#f59e0b,#d97706);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
     .gradient-text-cool{background:linear-gradient(135deg,#60a5fa,#3b82f6,#2563eb);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-    .gradient-text-mixed{background:linear-gradient(135deg,#ef4444,#a855f7,#3b82f6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;background-size:200% 200%;animation:border-flow 4s ease infinite}
+    .gradient-text-mixed{background:linear-gradient(90deg,#ef4444,#a855f7,#3b82f6,#ef4444);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;background-size:300% 100%;animation:text-shimmer 6s linear infinite}
 
     .glass{backdrop-filter:blur(16px);background:rgba(10,10,10,0.6);border:1px solid rgba(255,255,255,0.06)}
     .glass-light{backdrop-filter:blur(12px);background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06)}
-
     .card-spotlight{position:relative;overflow:hidden}
     .card-spotlight::before{content:'';position:absolute;inset:0;background:radial-gradient(600px circle at var(--mouse-x,50%) var(--mouse-y,50%),rgba(239,68,68,0.07),transparent 40%);z-index:0;opacity:0;transition:opacity .5s}
     .card-spotlight:hover::before{opacity:1}
@@ -109,27 +119,39 @@
     .btn-fill::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,#ef4444,#dc2626);transform:translateY(100%);transition:transform .3s cubic-bezier(0.16,1,0.3,1);z-index:-1}
     .btn-fill:hover::before{transform:translateY(0)}
     .btn-fill:hover{color:#fff!important;border-color:#ef4444!important}
-
     .link-underline{position:relative}
     .link-underline::after{content:'';position:absolute;bottom:-2px;left:0;width:100%;height:1px;background:#ef4444;transform:scaleX(0);transform-origin:left;transition:transform .5s cubic-bezier(0.25,0.46,0.45,0.94)}
     .link-underline:hover::after{transform:scaleX(1)}
 
-    .img-hover{filter:grayscale(80%);transition:all .7s cubic-bezier(0.25,0.46,0.45,0.94)}
-    .img-hover:hover{filter:grayscale(0%);transform:scale(1.05)}
+    #three-canvas{position:fixed;top:0;left-0;width:100%;height:100%;z-index:0;pointer-events:none}
 
-    .profile-3d{animation:tilt-3d 8s ease-in-out infinite;transform-style:preserve-3d}
-    .profile-ring{animation:pulse-ring 2s ease-out infinite}
+    /* ===== SECTION 3D SLIDE ANIMATIONS ===== */
+    .slide-3d-up{opacity:0;transform:perspective(1200px) rotateX(-12deg) translateY(80px) scale(0.95);transition:all 1s cubic-bezier(0.16,1,0.3,1)}
+    .slide-3d-down{opacity:0;transform:perspective(1200px) rotateX(12deg) translateY(-80px) scale(0.95);transition:all 1s cubic-bezier(0.16,1,0.3,1)}
+    .slide-3d-left{opacity:0;transform:perspective(1200px) rotateY(12deg) translateX(100px) scale(0.95);transition:all 1s cubic-bezier(0.16,1,0.3,1)}
+    .slide-3d-right{opacity:0;transform:perspective(1200px) rotateY(-12deg) translateX(-100px) scale(0.95);transition:all 1s cubic-bezier(0.16,1,0.3,1)}
+    .slide-3d-scale{opacity:0;transform:perspective(1200px) rotateX(5deg) rotateY(-5deg) scale(0.8);transition:all 1s cubic-bezier(0.16,1,0.3,1)}
+    .slide-flip{opacity:0;transform:perspective(800px) rotateX(-90deg);transition:all 1s cubic-bezier(0.16,1,0.3,1)}
+    .slide-card-l{opacity:0;transform:perspective(1000px) rotateY(15deg) translateX(-60px);transition:all 0.9s cubic-bezier(0.16,1,0.3,1)}
+    .slide-card-r{opacity:0;transform:perspective(1000px) rotateY(-15deg) translateX(60px);transition:all 0.9s cubic-bezier(0.16,1,0.3,1)}
+    .slide-card-b{opacity:0;transform:perspective(1000px) rotateX(10deg) translateY(50px);transition:all 0.9s cubic-bezier(0.16,1,0.3,1)}
 
-    #three-canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none}
+    .section-visible .slide-3d-up{opacity:1;transform:perspective(1200px) rotateX(0) translateY(0) scale(1)}
+    .section-visible .slide-3d-down{opacity:1;transform:perspective(1200px) rotateX(0) translateY(0) scale(1)}
+    .section-visible .slide-3d-left{opacity:1;transform:perspective(1200px) rotateY(0) translateX(0) scale(1)}
+    .section-visible .slide-3d-right{opacity:1;transform:perspective(1200px) rotateY(0) translateX(0) scale(1)}
+    .section-visible .slide-3d-scale{opacity:1;transform:perspective(1200px) rotateX(0) rotateY(0) scale(1)}
+    .section-visible .slide-flip{opacity:1;transform:perspective(800px) rotateX(0)}
+    .section-visible .slide-card-l{opacity:1;transform:perspective(1000px) rotateY(0) translateX(0)}
+    .section-visible .slide-card-r{opacity:1;transform:perspective(1000px) rotateY(0) translateX(0)}
+    .section-visible .slide-card-b{opacity:1;transform:perspective(1000px) rotateX(0) translateY(0)}
 
-    .section-visible .anim-scroll{opacity:0;animation:reveal 0.8s cubic-bezier(0.16,1,0.3,1) forwards}
-    .section-visible .anim-scroll-l{opacity:0;animation:reveal-left 0.8s cubic-bezier(0.16,1,0.3,1) forwards}
-    .section-visible .anim-scroll-r{opacity:0;animation:reveal-right 0.8s cubic-bezier(0.16,1,0.3,1) forwards}
-    .section-visible .anim-scroll-s{opacity:0;animation:reveal-scale 0.8s cubic-bezier(0.16,1,0.3,1) forwards}
-    .section-visible .sd1{animation-delay:.1s}.section-visible .sd2{animation-delay:.2s}
-    .section-visible .sd3{animation-delay:.3s}.section-visible .sd4{animation-delay:.4s}
-    .section-visible .sd5{animation-delay:.5s}.section-visible .sd6{animation-delay:.6s}
-    .section-visible .sd7{animation-delay:.7s}.section-visible .sd8{animation-delay:.8s}
+    .section-visible .d1{transition-delay:.05s}.section-visible .d2{transition-delay:.1s}
+    .section-visible .d3{transition-delay:.15s}.section-visible .d4{transition-delay:.2s}
+    .section-visible .d5{transition-delay:.25s}.section-visible .d6{transition-delay:.3s}
+    .section-visible .d7{transition-delay:.35s}.section-visible .d8{transition-delay:.4s}
+    .section-visible .d9{transition-delay:.45s}.section-visible .d10{transition-delay:.5s}
+    .section-visible .d11{transition-delay:.55s}.section-visible .d12{transition-delay:.6s}
 
     .nav-link{color:#a3a3a3;transition:color .3s}.nav-link:hover{color:#fff}.nav-link.active{color:#fff}
     .cert-card{transition:all .4s cubic-bezier(0.16,1,0.3,1)}
@@ -143,266 +165,164 @@
     .project-card:hover .project-img{transform:scale(1.1)}
     .project-img{transition:all .7s cubic-bezier(0.25,0.46,0.45,0.94)}
     .counter{font-variant-numeric:tabular-nums}
-    input:focus,textarea:focus,select:focus{border-color:rgba(239,68,68,0.4)!important;box-shadow:0 0 0 3px rgba(239,68,68,0.1)}
+    input:focus,textarea:focus{border-color:rgba(239,68,68,0.4)!important;box-shadow:0 0 0 3px rgba(239,68,68,0.1)}
     .weather-rain{position:absolute;width:1px;background:linear-gradient(to bottom,transparent,rgba(96,165,250,0.6));animation:rain-fall 1.2s linear infinite}
     .music-bar{width:3px;border-radius:2px;background:#a855f7;animation:music-wave 0.8s ease-in-out infinite}
-    .skill-tag{transition:all .3s}.skill-tag:hover{transform:translateY(-2px);border-color:rgba(239,68,68,0.3)!important}
-    .about-profile{position:relative}
-    .about-profile::before{content:'';position:absolute;inset:-3px;border-radius:50%;background:conic-gradient(from 0deg,#ef4444,#dc2626,#991b1b,transparent 60%);z-index:-1;animation:spin-slow 10s linear infinite}
-    .about-profile::after{content:'';position:absolute;inset:0;border-radius:50%;background:#0a0a0a;z-index:-1}
+    .skill-tag{transition:all .3s}.skill-tag:hover{transform:translateY(-3px);border-color:rgba(239,68,68,0.3)!important;background:rgba(239,68,68,0.06)!important}
+    .hero-particle{position:absolute;border-radius:50%;pointer-events:none}
 
-    /* Floating particles around cube */
-    .hero-particle{position:absolute;width:3px;height:3px;border-radius:50%;pointer-events:none}
+    /* ===== ANIMATED PROFILE IMAGE ===== */
+    .profile-anim-wrap{position:relative;display:inline-block}
+    .profile-anim-ring{position:absolute;inset:-6px;border-radius:50%;border:2px solid transparent;animation:profile-ring-spin 6s linear infinite}
+    .profile-anim-ring.r1{border-top-color:#ef4444;border-right-color:rgba(239,68,68,0.3);animation-duration:6s}
+    .profile-anim-ring.r2{inset:-12px;border-bottom-color:#3b82f6;border-left-color:rgba(59,130,246,0.3);animation-duration:8s;animation-direction:reverse}
+    .profile-anim-ring.r3{inset:-18px;border-top-color:#a855f7;animation-duration:12s;opacity:0.5}
+    .profile-anim-img{animation:profile-tilt 10s ease-in-out infinite,profile-glow 4s ease-in-out infinite;border-radius:50%;overflow:hidden}
+    .profile-orbit-dot{position:absolute;width:8px;height:8px;border-radius:50%;animation:orbit-dot 8s linear infinite}
+    .profile-orbit-dot.od1{background:#ef4444;box-shadow:0 0 12px rgba(239,68,68,0.8);top:50%;left:50%;margin:-4px}
+    .profile-orbit-dot.od2{background:#3b82f6;box-shadow:0 0 12px rgba(59,130,246,0.8);top:50%;left:50%;margin:-4px;animation-direction:reverse;animation-duration:12s}
 
-    /* Magnetic button */
+    /* ===== GEOMETRIC BG SHAPES ===== */
+    .geo-shape{position:absolute;pointer-events:none;opacity:0.03}
+    .geo-triangle{width:0;height:0;border-left:40px solid transparent;border-right:40px solid transparent;border-bottom:70px solid rgba(239,68,68,1)}
+    .geo-diamond{width:50px;height:50px;background:rgba(59,130,246,1);transform:rotate(45deg)}
+    .geo-circle{width:60px;height:60px;border:2px solid rgba(168,85,247,1);border-radius:50%}
+    .geo-cross{width:40px;height:40px;position:relative}
+    .geo-cross::before,.geo-cross::after{content:'';position:absolute;background:rgba(251,191,36,1);border-radius:2px}
+    .geo-cross::before{width:100%;height:3px;top:50%;transform:translateY(-50%)}
+    .geo-cross::after{width:3px;height:100%;left:50%;transform:translateX(-50%)}
+
     .magnetic-btn{transition:transform .3s cubic-bezier(0.16,1,0.3,1)}
-
-    /* Glow text on hover */
-    .glow-hover:hover{text-shadow:0 0 20px rgba(239,68,68,0.4),0 0 40px rgba(239,68,68,0.2)}
+    .glow-hover:hover{text-shadow:0 0 25px rgba(239,68,68,0.5),0 0 50px rgba(239,68,68,0.2)}
   </style>
 </head>
 <body>
 
-<!-- Custom Cursor -->
 <div class="cursor-dot" id="cursor-dot"></div>
 <div class="cursor-ring" id="cursor-ring"></div>
 <div class="cursor-glow" id="cursor-glow"></div>
 
-<!-- Cursor Trail (created via JS) -->
-
-<!-- Three.js Canvas -->
 <canvas id="three-canvas"></canvas>
 
-<!-- ==================== NAVIGATION ==================== -->
+<!-- ===== NAV ===== -->
 <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 h-16 flex items-center" style="backdrop-filter:blur(16px);background:rgba(5,5,5,0.7);border-bottom:1px solid rgba(255,255,255,0.04)">
   <div class="max-w-7xl mx-auto w-full px-8 flex items-center justify-between">
-    <a href="#hero" class="flex items-center gap-2.5 group">
-      <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background:linear-gradient(135deg,#ef4444,#991b1b)">
-        <span class="text-white text-xs font-bold">VK</span>
-      </div>
-      <span class="text-sm font-semibold tracking-tight hidden sm:inline">VIGNESH KUMAR</span>
-    </a>
+    <a href="#hero" class="flex items-center gap-2.5 group cursor-pointer"><div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background:linear-gradient(135deg,#ef4444,#991b1b)"><span class="text-white text-xs font-bold">VK</span></div><span class="text-sm font-semibold tracking-tight hidden sm:inline">VIGNESH KUMAR</span></a>
     <div class="hidden lg:flex items-center gap-10">
-      <a href="#about" class="nav-link text-sm font-medium tracking-tight link-underline">About</a>
-      <a href="#projects" class="nav-link text-sm font-medium tracking-tight link-underline">Projects</a>
-      <a href="#skills" class="nav-link text-sm font-medium tracking-tight link-underline">Skills</a>
-      <a href="#certificates" class="nav-link text-sm font-medium tracking-tight link-underline">Certificates</a>
-      <a href="#education" class="nav-link text-sm font-medium tracking-tight link-underline">Education</a>
-      <a href="#contact" class="nav-link text-sm font-medium tracking-tight link-underline">Contact</a>
+      <a href="#about" class="nav-link text-sm font-medium tracking-tight link-underline cursor-pointer">About</a>
+      <a href="#projects" class="nav-link text-sm font-medium tracking-tight link-underline cursor-pointer">Projects</a>
+      <a href="#skills" class="nav-link text-sm font-medium tracking-tight link-underline cursor-pointer">Skills</a>
+      <a href="#certificates" class="nav-link text-sm font-medium tracking-tight link-underline cursor-pointer">Certificates</a>
+      <a href="#education" class="nav-link text-sm font-medium tracking-tight link-underline cursor-pointer">Education</a>
+      <a href="#contact" class="nav-link text-sm font-medium tracking-tight link-underline cursor-pointer">Contact</a>
     </div>
     <div class="flex items-center gap-4">
       <a href="https://github.com/vignesh452006" target="_blank" class="text-neutral-500 hover:text-white transition-colors cursor-pointer"><iconify-icon icon="lucide:github" class="text-lg"></iconify-icon></a>
       <a href="https://www.linkedin.com/in/vignesh-kumar-c-b91062353" target="_blank" class="text-neutral-500 hover:text-white transition-colors cursor-pointer"><iconify-icon icon="lucide:linkedin" class="text-lg"></iconify-icon></a>
-      <a href="#contact" class="btn-fill magnetic-btn hidden sm:inline-flex items-center gap-2 px-5 py-2 rounded-full border border-white/10 text-xs font-semibold tracking-widest uppercase text-white transition-colors cursor-pointer">
-        Let's Talk <iconify-icon icon="lucide:arrow-right" class="text-sm"></iconify-icon>
-      </a>
+      <a href="#contact" class="btn-fill magnetic-btn hidden sm:inline-flex items-center gap-2 px-5 py-2 rounded-full border border-white/10 text-xs font-semibold tracking-widest uppercase text-white transition-colors cursor-pointer">Let's Talk <iconify-icon icon="lucide:arrow-right" class="text-sm"></iconify-icon></a>
     </div>
   </div>
 </nav>
 
-<!-- ==================== HERO ==================== -->
+<!-- ===== HERO ===== -->
 <section id="hero" class="relative min-h-screen flex items-center justify-center px-8 pt-20 overflow-hidden">
-  <!-- Background effects -->
   <div class="absolute inset-0 z-0">
     <div class="absolute inset-0" style="background:radial-gradient(ellipse at 25% 50%,rgba(239,68,68,0.05),transparent 55%)"></div>
     <div class="absolute inset-0" style="background:radial-gradient(ellipse at 75% 50%,rgba(59,130,246,0.04),transparent 55%)"></div>
     <div class="absolute inset-0" style="background:radial-gradient(ellipse at 50% 80%,rgba(168,85,247,0.03),transparent 50%)"></div>
   </div>
-  <!-- HUD Circles -->
-  <div class="absolute inset-0 z-0 flex items-center justify-center pointer-events-none">
-    <div class="spin-slow" style="width:700px;height:700px"><svg viewBox="0 0 700 700" class="w-full h-full" style="opacity:0.06"><circle cx="350" cy="350" r="300" fill="none" stroke="#ef4444" stroke-width="0.5" stroke-dasharray="4 8"/><circle cx="350" cy="350" r="250" fill="none" stroke="#ef4444" stroke-width="0.3" stroke-dasharray="2 12"/></svg></div>
-  </div>
-  <div class="absolute inset-0 z-0 flex items-center justify-center pointer-events-none">
-    <div class="spin-reverse" style="width:800px;height:800px"><svg viewBox="0 0 800 800" class="w-full h-full" style="opacity:0.04"><line x1="0" y1="400" x2="800" y2="400" stroke="#ef4444" stroke-width="0.3" stroke-dasharray="2 10"/><line x1="400" y1="0" x2="400" y2="800" stroke="#ef4444" stroke-width="0.3" stroke-dasharray="2 10"/></svg></div>
-  </div>
-  <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-    <div class="absolute left-0 right-0 h-px" style="background:linear-gradient(90deg,transparent,rgba(239,68,68,0.4),transparent);animation:scan-vertical 8s ease-in-out infinite"></div>
-  </div>
-
-  <!-- Hero Particles -->
+  <!-- Geometric BG Shapes -->
+  <div class="geo-shape geo-triangle" style="top:15%;left:8%;animation:geo-float-1 12s ease-in-out infinite"></div>
+  <div class="geo-shape geo-diamond" style="top:25%;right:12%;animation:geo-float-2 15s ease-in-out infinite"></div>
+  <div class="geo-shape geo-circle" style="bottom:20%;left:15%;animation:geo-float-3 18s ease-in-out infinite"></div>
+  <div class="geo-shape geo-cross" style="top:60%;right:8%;animation:geo-float-1 20s ease-in-out infinite;animation-delay:3s"></div>
+  <div class="geo-shape geo-triangle" style="bottom:30%;right:25%;animation:geo-float-2 14s ease-in-out infinite;animation-delay:5s"></div>
+  <div class="geo-shape geo-diamond" style="top:10%;left:40%;animation:geo-float-3 16s ease-in-out infinite;animation-delay:2s"></div>
+  <!-- HUD -->
+  <div class="absolute inset-0 z-0 flex items-center justify-center pointer-events-none"><div class="spin-slow" style="width:700px;height:700px"><svg viewBox="0 0 700 700" class="w-full h-full" style="opacity:0.06"><circle cx="350" cy="350" r="300" fill="none" stroke="#ef4444" stroke-width="0.5" stroke-dasharray="4 8"/><circle cx="350" cy="350" r="250" fill="none" stroke="#ef4444" stroke-width="0.3" stroke-dasharray="2 12"/></svg></div></div>
+  <div class="absolute inset-0 z-0 flex items-center justify-center pointer-events-none"><div class="spin-reverse" style="width:800px;height:800px"><svg viewBox="0 0 800 800" class="w-full h-full" style="opacity:0.04"><line x1="0" y1="400" x2="800" y2="400" stroke="#ef4444" stroke-width="0.3" stroke-dasharray="2 10"/><line x1="400" y1="0" x2="400" y2="800" stroke="#ef4444" stroke-width="0.3" stroke-dasharray="2 10"/></svg></div></div>
+  <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none"><div class="absolute left-0 right-0 h-px" style="background:linear-gradient(90deg,transparent,rgba(239,68,68,0.4),transparent);animation:scan-vertical 8s ease-in-out infinite"></div></div>
   <div id="hero-particles" class="absolute inset-0 z-0 pointer-events-none overflow-hidden"></div>
 
   <div class="relative z-10 w-full max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-5 gap-12 items-center">
-    <!-- Left Content -->
     <div class="lg:col-span-3">
-      <div class="anim-reveal anim-d1 mb-5">
-        <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/10 text-xs font-medium tracking-widest uppercase text-neutral-400" style="background:rgba(255,255,255,0.03)">
-          <span class="w-1.5 h-1.5 rounded-full bg-green-500 pulse-dot"></span> Available for Opportunities
-        </span>
-      </div>
-      <h1 class="anim-reveal anim-d2 text-5xl md:text-6xl lg:text-7xl font-bold leading-none glow-hover" style="letter-spacing:-0.04em;animation:text-flicker 4s ease-in-out infinite">
-        Crafting Digital<br>
-        <span class="gradient-text-mixed">Experiences</span> That<br>
-        <span style="font-weight:300;color:rgba(255,255,255,0.6)">Drive Impact</span>
-      </h1>
-      <p class="anim-reveal anim-d3 mt-6 text-lg font-light text-neutral-400 leading-relaxed max-w-xl">
-        Full-Stack Developer specializing in building scalable web solutions with Python, Flask, React, and modern technologies — turning complex problems into elegant interfaces.
-      </p>
+      <div class="anim-reveal anim-d1 mb-5"><span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/10 text-xs font-medium tracking-widest uppercase text-neutral-400" style="background:rgba(255,255,255,0.03)"><span class="w-1.5 h-1.5 rounded-full bg-green-500 pulse-dot"></span> Available for Opportunities</span></div>
+      <h1 class="anim-reveal anim-d2 text-5xl md:text-6xl lg:text-7xl font-bold leading-none glow-hover" style="letter-spacing:-0.04em">Crafting Digital<br><span class="gradient-text-mixed">Experiences</span> That<br><span style="font-weight:300;color:rgba(255,255,255,0.55)">Drive Impact</span></h1>
+      <p class="anim-reveal anim-d3 mt-6 text-lg font-light text-neutral-400 leading-relaxed max-w-xl">Full-Stack Developer specializing in building scalable web solutions with Python, Flask, React, and modern technologies — turning complex problems into elegant interfaces.</p>
       <div class="anim-reveal anim-d4 mt-8 flex flex-wrap items-center gap-4">
-        <a href="#projects" class="btn-fill magnetic-btn inline-flex items-center gap-2 px-8 py-3.5 rounded-full border border-white/10 text-xs font-semibold tracking-widest uppercase text-white transition-all cursor-pointer">
-          Explore Work <iconify-icon icon="lucide:arrow-down" class="text-sm"></iconify-icon>
-        </a>
-        <a href="#contact" class="magnetic-btn inline-flex items-center gap-2 px-8 py-3.5 rounded-full text-xs font-semibold tracking-widest uppercase text-neutral-400 hover:text-white transition-colors cursor-pointer">
-          Connect With Me
-        </a>
+        <a href="#projects" class="btn-fill magnetic-btn inline-flex items-center gap-2 px-8 py-3.5 rounded-full border border-white/10 text-xs font-semibold tracking-widest uppercase text-white transition-all cursor-pointer">Explore Work <iconify-icon icon="lucide:arrow-down" class="text-sm"></iconify-icon></a>
+        <a href="#contact" class="magnetic-btn inline-flex items-center gap-2 px-8 py-3.5 rounded-full text-xs font-semibold tracking-widest uppercase text-neutral-400 hover:text-white transition-colors cursor-pointer">Connect With Me</a>
       </div>
       <div class="anim-reveal anim-d5 mt-10 flex items-center gap-6">
-        <a href="https://github.com/vignesh452006" target="_blank" class="flex items-center gap-2 text-sm text-neutral-500 hover:text-white transition-colors cursor-pointer">
-          <iconify-icon icon="lucide:github" class="text-base"></iconify-icon> GitHub
-        </a>
+        <a href="https://github.com/vignesh452006" target="_blank" class="flex items-center gap-2 text-sm text-neutral-500 hover:text-white transition-colors cursor-pointer"><iconify-icon icon="lucide:github" class="text-base"></iconify-icon> GitHub</a>
         <span class="text-neutral-700">|</span>
-        <a href="https://www.linkedin.com/in/vignesh-kumar-c-b91062353" target="_blank" class="flex items-center gap-2 text-sm text-neutral-500 hover:text-white transition-colors cursor-pointer">
-          <iconify-icon icon="lucide:linkedin" class="text-base"></iconify-icon> LinkedIn
-        </a>
+        <a href="https://www.linkedin.com/in/vignesh-kumar-c-b91062353" target="_blank" class="flex items-center gap-2 text-sm text-neutral-500 hover:text-white transition-colors cursor-pointer"><iconify-icon icon="lucide:linkedin" class="text-base"></iconify-icon> LinkedIn</a>
       </div>
     </div>
 
-    <!-- Right: 3D Cube -->
+    <!-- 3D Cube -->
     <div class="lg:col-span-2 flex justify-center anim-reveal anim-d3">
       <div class="relative flex items-center justify-center">
-        <!-- Glow behind cube -->
         <div class="cube-glow"></div>
-        <!-- Orbit ring -->
         <div class="cube-orbit"></div>
-        <div class="cube-orbit-dot" style="top:0;left:50%;margin-left:-3px"></div>
-
-        <!-- 3D Cube -->
-        <div class="cube-wrapper" id="cube-wrapper">
-          <div class="cube-3d" id="cube-3d">
-            <!-- Front: Full Stack -->
-            <div class="cube-face cube-face-front face-bg-1">
-              <iconify-icon icon="lucide:layers" class="face-icon" style="color:#ef4444"></iconify-icon>
-              <div class="face-title" style="color:#ef4444">Full Stack</div>
-              <div class="face-sub">Development</div>
-              <div class="face-tags">
-                <span class="face-tag">Frontend</span>
-                <span class="face-tag">Backend</span>
-                <span class="face-tag">API</span>
-              </div>
-            </div>
-            <!-- Back: Python Flask -->
-            <div class="cube-face cube-face-back face-bg-2">
-              <iconify-icon icon="lucide:terminal" class="face-icon" style="color:#60a5fa"></iconify-icon>
-              <div class="face-title" style="color:#60a5fa">Python Flask</div>
-              <div class="face-sub">Backend Framework</div>
-              <div class="face-tags">
-                <span class="face-tag">REST API</span>
-                <span class="face-tag">Routing</span>
-                <span class="face-tag">Templates</span>
-              </div>
-            </div>
-            <!-- Right: MySQL -->
-            <div class="cube-face cube-face-right face-bg-3">
-              <iconify-icon icon="lucide:database" class="face-icon" style="color:#a855f7"></iconify-icon>
-              <div class="face-title" style="color:#a855f7">MySQL</div>
-              <div class="face-sub">Database</div>
-              <div class="face-tags">
-                <span class="face-tag">Queries</span>
-                <span class="face-tag">Schema</span>
-                <span class="face-tag">ORM</span>
-              </div>
-            </div>
-            <!-- Left: React -->
-            <div class="cube-face cube-face-left face-bg-4">
-              <iconify-icon icon="lucide:atom" class="face-icon" style="color:#22c55e"></iconify-icon>
-              <div class="face-title" style="color:#22c55e">React</div>
-              <div class="face-sub">UI Library</div>
-              <div class="face-tags">
-                <span class="face-tag">Components</span>
-                <span class="face-tag">Hooks</span>
-                <span class="face-tag">JSX</span>
-              </div>
-            </div>
-            <!-- Top: Frontend -->
-            <div class="cube-face cube-face-top face-bg-5">
-              <iconify-icon icon="lucide:layout" class="face-icon" style="color:#fbbf24"></iconify-icon>
-              <div class="face-title" style="color:#fbbf24">Frontend</div>
-              <div class="face-sub">UI / UX</div>
-              <div class="face-tags">
-                <span class="face-tag">HTML</span>
-                <span class="face-tag">CSS</span>
-                <span class="face-tag">JS</span>
-              </div>
-            </div>
-            <!-- Bottom: API -->
-            <div class="cube-face cube-face-bottom face-bg-6">
-              <iconify-icon icon="lucide:plug" class="face-icon" style="color:#ec4899"></iconify-icon>
-              <div class="face-title" style="color:#ec4899">API</div>
-              <div class="face-sub">Integration</div>
-              <div class="face-tags">
-                <span class="face-tag">REST</span>
-                <span class="face-tag">JSON</span>
-                <span class="face-tag">CRUD</span>
-              </div>
-            </div>
+        <div class="cube-orbit-dot"></div>
+        <div class="cube-scene" id="cube-scene">
+          <div class="cube-3d auto-rotate" id="cube-3d">
+            <div class="cube-face cf-front fb1"><iconify-icon icon="lucide:layers" class="face-icon" style="color:#ef4444"></iconify-icon><div class="face-title" style="color:#ef4444">Full Stack</div><div class="face-sub">Development</div><div class="face-tags"><span class="face-tag">Frontend</span><span class="face-tag">Backend</span><span class="face-tag">API</span></div></div>
+            <div class="cube-face cf-back fb2"><iconify-icon icon="lucide:terminal" class="face-icon" style="color:#60a5fa"></iconify-icon><div class="face-title" style="color:#60a5fa">Python Flask</div><div class="face-sub">Backend Framework</div><div class="face-tags"><span class="face-tag">REST API</span><span class="face-tag">Routing</span><span class="face-tag">Templates</span></div></div>
+            <div class="cube-face cf-right fb3"><iconify-icon icon="lucide:database" class="face-icon" style="color:#a855f7"></iconify-icon><div class="face-title" style="color:#a855f7">MySQL</div><div class="face-sub">Database</div><div class="face-tags"><span class="face-tag">Queries</span><span class="face-tag">Schema</span><span class="face-tag">ORM</span></div></div>
+            <div class="cube-face cf-left fb4"><iconify-icon icon="lucide:atom" class="face-icon" style="color:#22c55e"></iconify-icon><div class="face-title" style="color:#22c55e">React</div><div class="face-sub">UI Library</div><div class="face-tags"><span class="face-tag">Components</span><span class="face-tag">Hooks</span><span class="face-tag">JSX</span></div></div>
+            <div class="cube-face cf-top fb5"><iconify-icon icon="lucide:layout" class="face-icon" style="color:#fbbf24"></iconify-icon><div class="face-title" style="color:#fbbf24">Frontend</div><div class="face-sub">UI / UX</div><div class="face-tags"><span class="face-tag">HTML</span><span class="face-tag">CSS</span><span class="face-tag">JS</span></div></div>
+            <div class="cube-face cf-bottom fb6"><iconify-icon icon="lucide:plug" class="face-icon" style="color:#ec4899"></iconify-icon><div class="face-title" style="color:#ec4899">API</div><div class="face-sub">Integration</div><div class="face-tags"><span class="face-tag">REST</span><span class="face-tag">JSON</span><span class="face-tag">CRUD</span></div></div>
           </div>
         </div>
       </div>
     </div>
   </div>
-
-  <div class="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 anim-reveal anim-d6">
-    <span class="text-xs tracking-widest uppercase text-neutral-600">Scroll</span>
-    <div class="bounce-down"><iconify-icon icon="lucide:chevron-down" class="text-neutral-600"></iconify-icon></div>
-  </div>
+  <div class="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 anim-reveal anim-d6"><span class="text-xs tracking-widest uppercase text-neutral-600">Scroll</span><div class="bounce-down"><iconify-icon icon="lucide:chevron-down" class="text-neutral-600"></iconify-icon></div></div>
 </section>
 
-<!-- ==================== ABOUT ME ==================== -->
-<section id="about" class="observe-section relative z-10 py-28 px-8">
+<!-- ===== ABOUT ===== -->
+<section id="about" class="observe-section relative z-10 py-28 px-8 overflow-hidden">
+  <div class="geo-shape geo-circle" style="top:10%;right:5%;animation:geo-float-2 20s ease-in-out infinite"></div>
+  <div class="geo-shape geo-diamond" style="bottom:15%;left:3%;animation:geo-float-1 16s ease-in-out infinite"></div>
   <div class="max-w-7xl mx-auto">
     <div class="text-center mb-16">
-      <span class="anim-scroll text-xs font-medium tracking-widest uppercase text-red-500">Who I Am</span>
-      <h2 class="anim-scroll sd1 mt-4 text-3xl md:text-5xl font-bold" style="letter-spacing:-0.025em">About <span class="gradient-text">Me</span></h2>
+      <span class="slide-3d-up d1 text-xs font-medium tracking-widest uppercase text-red-500">Who I Am</span>
+      <h2 class="slide-3d-up d2 mt-4 text-3xl md:text-5xl font-bold" style="letter-spacing:-0.025em">About <span class="gradient-text">Me</span></h2>
     </div>
     <div class="grid grid-cols-1 lg:grid-cols-5 gap-16 items-start">
-      <!-- Profile Image (KEPT HERE) -->
-      <div class="lg:col-span-2 flex justify-center anim-scroll-s sd1">
-        <div class="relative">
-          <div class="about-profile w-56 h-56 md:w-64 md:h-64 lg:w-72 lg:h-72 rounded-full overflow-hidden">
+      <!-- Animated Profile Image -->
+      <div class="lg:col-span-2 flex justify-center slide-3d-left d3">
+        <div class="profile-anim-wrap">
+          <div class="profile-anim-ring r1"></div>
+          <div class="profile-anim-ring r2"></div>
+          <div class="profile-anim-ring r3"></div>
+          <div class="profile-orbit-dot od1"></div>
+          <div class="profile-orbit-dot od2"></div>
+          <div class="profile-anim-img" style="width:260px;height:260px">
             <img src="https://z-cdn-media.chatglm.cn/files/e4dd731e-001f-4ccb-aa28-475043f9de69.jpg?auth_key=1875149230-1861b4294d064bca827e2ad7e657de96-0-240e57b7d19fb719b7ba47a9c8acc511" alt="Vignesh Kumar" class="w-full h-full object-cover object-center">
           </div>
-          <div class="absolute -bottom-4 left-1/2 -translate-x-1/2 glass rounded-xl px-5 py-2.5 float">
-            <span class="text-sm font-semibold gradient-text">Full Stack Developer</span>
-          </div>
+          <div class="absolute -bottom-5 left-1/2 -translate-x-1/2 glass rounded-xl px-5 py-2.5 float z-10"><span class="text-sm font-semibold gradient-text">Full Stack Developer</span></div>
         </div>
       </div>
-      <!-- Content -->
       <div class="lg:col-span-3">
-        <div class="anim-scroll sd2 space-y-5">
-          <p class="text-base font-light text-neutral-300 leading-relaxed">
-            I'm <span class="text-white font-medium">Vignesh Kumar C</span>, a dedicated <span class="text-red-400 font-medium">Full Stack Developer</span> from Rajapalayam, Virudhunagar District, Tamil Nadu, India (626108).
-          </p>
-          <p class="text-base font-light text-neutral-400 leading-relaxed">
-            I specialize in building modern, responsive web applications with a strong foundation in both frontend and backend technologies. My development journey is driven by a relentless curiosity and a deep commitment to crafting solutions that create real-world impact.
-          </p>
-          <p class="text-base font-light text-neutral-400 leading-relaxed">
-            Currently pursuing my engineering degree at <span class="text-neutral-300">PSRR College of Engineering, Sivakasi</span>, I seamlessly balance academics with hands-on project building — from e-commerce platforms and weather applications to AI-powered chatbots and interactive music players.
-          </p>
-          <p class="text-base font-light text-neutral-400 leading-relaxed">
-            My technical arsenal includes <span class="text-neutral-300">Python, Flask, React, MySQL, Java, and C</span> — and I'm constantly expanding into AI/ML, cloud computing, and modern frameworks to stay ahead of the curve.
-          </p>
+        <div class="slide-3d-right d4 space-y-5">
+          <p class="text-base font-light text-neutral-300 leading-relaxed">I'm <span class="text-white font-medium">Vignesh Kumar C</span>, a dedicated <span class="text-red-400 font-medium">Full Stack Developer</span> from Rajapalayam, Virudhunagar District, Tamil Nadu, India (626108).</p>
+          <p class="text-base font-light text-neutral-400 leading-relaxed">I specialize in building modern, responsive web applications with a strong foundation in both frontend and backend technologies. My development journey is driven by relentless curiosity and deep commitment to crafting solutions that create real-world impact.</p>
+          <p class="text-base font-light text-neutral-400 leading-relaxed">Currently pursuing my engineering degree at <span class="text-neutral-300">PSRR College of Engineering, Sivakasi</span>, I seamlessly balance academics with hands-on project building — from e-commerce platforms and weather apps to AI-powered chatbots and interactive music players.</p>
+          <p class="text-base font-light text-neutral-400 leading-relaxed">My technical arsenal includes <span class="text-neutral-300">Python, Flask, React, MySQL, Java, and C</span> — and I'm constantly expanding into AI/ML and modern frameworks.</p>
         </div>
-        <div class="anim-scroll sd3 mt-8 flex items-center gap-4 p-5 rounded-xl glass-light">
-          <div class="w-11 h-11 rounded-lg flex items-center justify-center shrink-0" style="background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.12)">
-            <iconify-icon icon="lucide:map-pin" class="text-red-500 text-lg"></iconify-icon>
-          </div>
-          <div>
-            <div class="text-sm font-medium text-white">Rajapalayam, Virudhunagar</div>
-            <div class="text-xs text-neutral-500 mt-0.5">Tamil Nadu, India — 626108</div>
-          </div>
-        </div>
-        <div class="anim-scroll sd4 mt-6">
-          <div class="text-xs font-medium tracking-widest uppercase text-neutral-500 mb-3">Core Skills</div>
-          <div class="flex flex-wrap gap-2.5">
-            <span class="skill-tag px-4 py-2 rounded-lg text-sm text-neutral-300 glass-light flex items-center gap-2 cursor-pointer"><iconify-icon icon="lucide:code" class="text-red-400 text-xs"></iconify-icon>Python <span class="text-xs text-red-400 font-medium">90%</span></span>
-            <span class="skill-tag px-4 py-2 rounded-lg text-sm text-neutral-300 glass-light flex items-center gap-2 cursor-pointer"><iconify-icon icon="lucide:server" class="text-blue-400 text-xs"></iconify-icon>Flask <span class="text-xs text-blue-400 font-medium">90%</span></span>
-            <span class="skill-tag px-4 py-2 rounded-lg text-sm text-neutral-300 glass-light flex items-center gap-2 cursor-pointer"><iconify-icon icon="lucide:coffee" class="text-yellow-400 text-xs"></iconify-icon>Java <span class="text-xs text-yellow-400 font-medium">90%</span></span>
-            <span class="skill-tag px-4 py-2 rounded-lg text-sm text-neutral-300 glass-light flex items-center gap-2 cursor-pointer"><iconify-icon icon="lucide:terminal" class="text-green-400 text-xs"></iconify-icon>C <span class="text-xs text-green-400 font-medium">90%</span></span>
-            <span class="skill-tag px-4 py-2 rounded-lg text-sm text-neutral-300 glass-light flex items-center gap-2 cursor-pointer"><iconify-icon icon="lucide:file-code" class="text-orange-400 text-xs"></iconify-icon>HTML/CSS <span class="text-xs text-orange-400 font-medium">90%</span></span>
-            <span class="skill-tag px-4 py-2 rounded-lg text-sm text-neutral-300 glass-light flex items-center gap-2 cursor-pointer"><iconify-icon icon="lucide:braces" class="text-purple-400 text-xs"></iconify-icon>JavaScript <span class="text-xs text-purple-400 font-medium">70%</span></span>
-          </div>
-        </div>
-        <div class="anim-scroll sd5 mt-8 grid grid-cols-3 gap-5">
+        <div class="slide-3d-up d5 mt-8 flex items-center gap-4 p-5 rounded-xl glass-light"><div class="w-11 h-11 rounded-lg flex items-center justify-center shrink-0" style="background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.12)"><iconify-icon icon="lucide:map-pin" class="text-red-500 text-lg"></iconify-icon></div><div><div class="text-sm font-medium text-white">Rajapalayam, Virudhunagar</div><div class="text-xs text-neutral-500 mt-0.5">Tamil Nadu, India — 626108</div></div></div>
+        <div class="slide-3d-up d6 mt-6"><div class="text-xs font-medium tracking-widest uppercase text-neutral-500 mb-3">Core Skills</div><div class="flex flex-wrap gap-2.5">
+          <span class="skill-tag px-4 py-2 rounded-lg text-sm text-neutral-300 glass-light flex items-center gap-2 cursor-pointer"><iconify-icon icon="lucide:code" class="text-red-400 text-xs"></iconify-icon>Python <span class="text-xs text-red-400 font-medium">90%</span></span>
+          <span class="skill-tag px-4 py-2 rounded-lg text-sm text-neutral-300 glass-light flex items-center gap-2 cursor-pointer"><iconify-icon icon="lucide:server" class="text-blue-400 text-xs"></iconify-icon>Flask <span class="text-xs text-blue-400 font-medium">90%</span></span>
+          <span class="skill-tag px-4 py-2 rounded-lg text-sm text-neutral-300 glass-light flex items-center gap-2 cursor-pointer"><iconify-icon icon="lucide:coffee" class="text-yellow-400 text-xs"></iconify-icon>Java <span class="text-xs text-yellow-400 font-medium">90%</span></span>
+          <span class="skill-tag px-4 py-2 rounded-lg text-sm text-neutral-300 glass-light flex items-center gap-2 cursor-pointer"><iconify-icon icon="lucide:terminal" class="text-green-400 text-xs"></iconify-icon>C <span class="text-xs text-green-400 font-medium">90%</span></span>
+          <span class="skill-tag px-4 py-2 rounded-lg text-sm text-neutral-300 glass-light flex items-center gap-2 cursor-pointer"><iconify-icon icon="lucide:file-code" class="text-orange-400 text-xs"></iconify-icon>HTML/CSS <span class="text-xs text-orange-400 font-medium">90%</span></span>
+          <span class="skill-tag px-4 py-2 rounded-lg text-sm text-neutral-300 glass-light flex items-center gap-2 cursor-pointer"><iconify-icon icon="lucide:braces" class="text-purple-400 text-xs"></iconify-icon>JavaScript <span class="text-xs text-purple-400 font-medium">70%</span></span>
+        </div></div>
+        <div class="slide-3d-scale d7 mt-8 grid grid-cols-3 gap-5">
           <div class="p-5 rounded-xl glass-light text-center"><div class="text-2xl font-bold gradient-text counter">8+</div><div class="text-xs text-neutral-500 tracking-wider uppercase mt-1">Projects</div></div>
           <div class="p-5 rounded-xl glass-light text-center"><div class="text-2xl font-bold gradient-text-cool counter">9</div><div class="text-xs text-neutral-500 tracking-wider uppercase mt-1">Certificates</div></div>
           <div class="p-5 rounded-xl glass-light text-center"><div class="text-2xl font-bold gradient-text-gold counter">90%</div><div class="text-xs text-neutral-500 tracking-wider uppercase mt-1">Core Skills</div></div>
@@ -412,303 +332,118 @@
   </div>
 </section>
 
-<!-- ==================== PROJECTS ==================== -->
-<section id="projects" class="observe-section relative z-10 py-28 px-8">
+<!-- ===== PROJECTS ===== -->
+<section id="projects" class="observe-section relative z-10 py-28 px-8 overflow-hidden">
+  <div class="geo-shape geo-cross" style="top:5%;left:10%;animation:geo-float-3 18s ease-in-out infinite"></div>
+  <div class="geo-shape geo-triangle" style="bottom:10%;right:8%;animation:geo-float-1 14s ease-in-out infinite;animation-delay:4s"></div>
   <div class="max-w-7xl mx-auto">
     <div class="text-center mb-16">
-      <span class="anim-scroll text-xs font-medium tracking-widest uppercase text-red-500">Portfolio</span>
-      <h2 class="anim-scroll sd1 mt-4 text-3xl md:text-5xl font-bold" style="letter-spacing:-0.025em">Featured <span class="gradient-text">Projects</span></h2>
-      <p class="anim-scroll sd2 mt-4 text-neutral-400 font-light max-w-2xl mx-auto">Each project reflects my passion for clean code, thoughtful design, and seamless user experiences.</p>
+      <span class="slide-3d-down d1 text-xs font-medium tracking-widest uppercase text-red-500">Portfolio</span>
+      <h2 class="slide-3d-down d2 mt-4 text-3xl md:text-5xl font-bold" style="letter-spacing:-0.025em">Featured <span class="gradient-text">Projects</span></h2>
+      <p class="slide-3d-down d3 mt-4 text-neutral-400 font-light max-w-2xl mx-auto">Each project reflects my passion for clean code, thoughtful design, and seamless user experiences.</p>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-      <!-- E-Commerce -->
-      <a href="https://vignesh452006.github.io/Ecommerce/" target="_blank" class="anim-scroll-s sd1 project-card group block rounded-2xl overflow-hidden card-spotlight cursor-pointer" style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05)">
-        <div class="relative aspect-video overflow-hidden" style="background:linear-gradient(135deg,#1a0a2e,#0d1117)">
-          <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=450&fit=crop&q=80" alt="E-Commerce" class="project-img w-full h-full object-cover opacity-70">
-          <div class="absolute inset-0" style="background:linear-gradient(135deg,rgba(239,68,68,0.15),rgba(0,0,0,0.6))"></div>
-          <div class="absolute top-4 left-4 w-10 h-10 rounded-lg flex items-center justify-center" style="background:rgba(0,0,0,0.5);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.1)"><iconify-icon icon="lucide:shopping-cart" class="text-red-400 text-lg" style="animation:cart-bounce 2s ease-in-out infinite"></iconify-icon></div>
-          <div class="absolute bottom-3 left-4 flex gap-1"><span class="px-2 py-0.5 rounded text-[10px] font-medium text-white/80" style="background:rgba(0,0,0,0.5);backdrop-filter:blur(4px)">Products</span><span class="px-2 py-0.5 rounded text-[10px] font-medium text-white/80" style="background:rgba(0,0,0,0.5);backdrop-filter:blur(4px)">Cart</span><span class="px-2 py-0.5 rounded text-[10px] font-medium text-white/80" style="background:rgba(0,0,0,0.5);backdrop-filter:blur(4px)">Checkout</span></div>
-          <div class="project-overlay absolute inset-0 flex items-center justify-center" style="background:rgba(0,0,0,0.7)"><div class="flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/20 text-xs font-semibold tracking-widest uppercase text-white"><iconify-icon icon="lucide:external-link" class="text-sm"></iconify-icon> Live Demo</div></div>
-        </div>
-        <div class="p-7">
-          <div class="flex items-center gap-2 mb-3"><iconify-icon icon="lucide:shopping-bag" class="text-red-500"></iconify-icon><span class="text-xs font-medium tracking-widest uppercase text-neutral-500">E-Commerce</span></div>
-          <h3 class="text-xl font-semibold group-hover:text-red-400 transition-colors">E-Commerce Website</h3>
-          <p class="mt-2 text-sm font-light text-neutral-400 leading-relaxed">Full-featured online store with product catalog, cart management, and seamless checkout.</p>
-          <div class="mt-4 flex flex-wrap gap-2"><span class="px-2.5 py-1 rounded text-xs text-neutral-500 glass-light">HTML/CSS</span><span class="px-2.5 py-1 rounded text-xs text-neutral-500 glass-light">JavaScript</span><span class="px-2.5 py-1 rounded text-xs text-neutral-500 glass-light">Responsive</span></div>
-        </div>
+      <a href="https://vignesh452006.github.io/Ecommerce/" target="_blank" class="slide-card-l d4 project-card group block rounded-2xl overflow-hidden card-spotlight cursor-pointer" style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05)">
+        <div class="relative aspect-video overflow-hidden" style="background:linear-gradient(135deg,#1a0a2e,#0d1117)"><img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=450&fit=crop&q=80" alt="E-Commerce" class="project-img w-full h-full object-cover opacity-70"><div class="absolute inset-0" style="background:linear-gradient(135deg,rgba(239,68,68,0.15),rgba(0,0,0,0.6))"></div><div class="absolute top-4 left-4 w-10 h-10 rounded-lg flex items-center justify-center" style="background:rgba(0,0,0,0.5);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.1)"><iconify-icon icon="lucide:shopping-cart" class="text-red-400 text-lg" style="animation:cart-bounce 2s ease-in-out infinite"></iconify-icon></div><div class="absolute bottom-3 left-4 flex gap-1"><span class="px-2 py-0.5 rounded text-[10px] font-medium text-white/80" style="background:rgba(0,0,0,0.5);backdrop-filter:blur(4px)">Products</span><span class="px-2 py-0.5 rounded text-[10px] font-medium text-white/80" style="background:rgba(0,0,0,0.5);backdrop-filter:blur(4px)">Cart</span></div><div class="project-overlay absolute inset-0 flex items-center justify-center" style="background:rgba(0,0,0,0.7)"><div class="flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/20 text-xs font-semibold tracking-widest uppercase text-white"><iconify-icon icon="lucide:external-link" class="text-sm"></iconify-icon> Live Demo</div></div></div>
+        <div class="p-7"><div class="flex items-center gap-2 mb-3"><iconify-icon icon="lucide:shopping-bag" class="text-red-500"></iconify-icon><span class="text-xs font-medium tracking-widest uppercase text-neutral-500">E-Commerce</span></div><h3 class="text-xl font-semibold group-hover:text-red-400 transition-colors">E-Commerce Website</h3><p class="mt-2 text-sm font-light text-neutral-400 leading-relaxed">Full-featured online store with product catalog, cart, and checkout.</p><div class="mt-4 flex flex-wrap gap-2"><span class="px-2.5 py-1 rounded text-xs text-neutral-500 glass-light">HTML/CSS</span><span class="px-2.5 py-1 rounded text-xs text-neutral-500 glass-light">JavaScript</span></div></div>
       </a>
-      <!-- Weather -->
-      <a href="https://vignesh452006.github.io/WHETHERCHECKING/" target="_blank" class="anim-scroll-s sd2 project-card group block rounded-2xl overflow-hidden card-spotlight cursor-pointer" style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05)">
-        <div class="relative aspect-video overflow-hidden" style="background:linear-gradient(135deg,#0c1929,#1a2a4a)">
-          <img src="https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?w=800&h=450&fit=crop&q=80" alt="Weather" class="project-img w-full h-full object-cover opacity-60">
-          <div class="absolute inset-0" style="background:linear-gradient(135deg,rgba(59,130,246,0.2),rgba(0,0,0,0.5))"></div>
-          <div class="absolute inset-0 overflow-hidden pointer-events-none">
-            <div class="weather-rain" style="left:10%;height:20px;animation-delay:0s;animation-duration:0.8s"></div>
-            <div class="weather-rain" style="left:25%;height:15px;animation-delay:0.3s;animation-duration:1s"></div>
-            <div class="weather-rain" style="left:40%;height:18px;animation-delay:0.6s;animation-duration:0.9s"></div>
-            <div class="weather-rain" style="left:55%;height:22px;animation-delay:0.2s;animation-duration:0.7s"></div>
-            <div class="weather-rain" style="left:70%;height:16px;animation-delay:0.8s;animation-duration:1.1s"></div>
-            <div class="weather-rain" style="left:85%;height:19px;animation-delay:0.4s;animation-duration:0.85s"></div>
-          </div>
-          <div class="absolute top-4 left-4 w-10 h-10 rounded-lg flex items-center justify-center" style="background:rgba(0,0,0,0.5);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.1)"><iconify-icon icon="lucide:cloud-rain" class="text-blue-400 text-lg"></iconify-icon></div>
-          <div class="absolute bottom-3 right-4 px-3 py-1.5 rounded-lg text-xl font-bold text-white" style="background:rgba(0,0,0,0.5);backdrop-filter:blur(8px)">28°C</div>
-          <div class="project-overlay absolute inset-0 flex items-center justify-center" style="background:rgba(0,0,0,0.7)"><div class="flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/20 text-xs font-semibold tracking-widest uppercase text-white"><iconify-icon icon="lucide:external-link" class="text-sm"></iconify-icon> Live Demo</div></div>
-        </div>
-        <div class="p-7">
-          <div class="flex items-center gap-2 mb-3"><iconify-icon icon="lucide:cloud-sun" class="text-blue-400"></iconify-icon><span class="text-xs font-medium tracking-widest uppercase text-neutral-500">Weather App</span></div>
-          <h3 class="text-xl font-semibold group-hover:text-red-400 transition-colors">Weather Checking App</h3>
-          <p class="mt-2 text-sm font-light text-neutral-400 leading-relaxed">Real-time weather data with location search, dynamic conditions UI, and forecasts.</p>
-          <div class="mt-4 flex flex-wrap gap-2"><span class="px-2.5 py-1 rounded text-xs text-neutral-500 glass-light">API</span><span class="px-2.5 py-1 rounded text-xs text-neutral-500 glass-light">JavaScript</span><span class="px-2.5 py-1 rounded text-xs text-neutral-500 glass-light">CSS</span></div>
-        </div>
+      <a href="https://vignesh452006.github.io/WHETHERCHECKING/" target="_blank" class="slide-card-b d5 project-card group block rounded-2xl overflow-hidden card-spotlight cursor-pointer" style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05)">
+        <div class="relative aspect-video overflow-hidden" style="background:linear-gradient(135deg,#0c1929,#1a2a4a)"><img src="https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?w=800&h=450&fit=crop&q=80" alt="Weather" class="project-img w-full h-full object-cover opacity-60"><div class="absolute inset-0" style="background:linear-gradient(135deg,rgba(59,130,246,0.2),rgba(0,0,0,0.5))"></div><div class="absolute inset-0 overflow-hidden pointer-events-none"><div class="weather-rain" style="left:10%;height:20px;animation-delay:0s;animation-duration:0.8s"></div><div class="weather-rain" style="left:30%;height:15px;animation-delay:0.3s;animation-duration:1s"></div><div class="weather-rain" style="left:50%;height:18px;animation-delay:0.6s;animation-duration:0.9s"></div><div class="weather-rain" style="left:70%;height:22px;animation-delay:0.2s;animation-duration:0.7s"></div><div class="weather-rain" style="left:90%;height:16px;animation-delay:0.8s;animation-duration:1.1s"></div></div><div class="absolute top-4 left-4 w-10 h-10 rounded-lg flex items-center justify-center" style="background:rgba(0,0,0,0.5);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.1)"><iconify-icon icon="lucide:cloud-rain" class="text-blue-400 text-lg"></iconify-icon></div><div class="absolute bottom-3 right-4 px-3 py-1.5 rounded-lg text-xl font-bold text-white" style="background:rgba(0,0,0,0.5);backdrop-filter:blur(8px)">28°C</div><div class="project-overlay absolute inset-0 flex items-center justify-center" style="background:rgba(0,0,0,0.7)"><div class="flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/20 text-xs font-semibold tracking-widest uppercase text-white"><iconify-icon icon="lucide:external-link" class="text-sm"></iconify-icon> Live Demo</div></div></div>
+        <div class="p-7"><div class="flex items-center gap-2 mb-3"><iconify-icon icon="lucide:cloud-sun" class="text-blue-400"></iconify-icon><span class="text-xs font-medium tracking-widest uppercase text-neutral-500">Weather App</span></div><h3 class="text-xl font-semibold group-hover:text-red-400 transition-colors">Weather Checking App</h3><p class="mt-2 text-sm font-light text-neutral-400 leading-relaxed">Real-time weather data with location search and forecasts.</p><div class="mt-4 flex flex-wrap gap-2"><span class="px-2.5 py-1 rounded text-xs text-neutral-500 glass-light">API</span><span class="px-2.5 py-1 rounded text-xs text-neutral-500 glass-light">JavaScript</span></div></div>
       </a>
-      <!-- Music -->
-      <a href="https://vignesh452006.github.io/MUSICAPP/" target="_blank" class="anim-scroll-s sd3 project-card group block rounded-2xl overflow-hidden card-spotlight cursor-pointer" style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05)">
-        <div class="relative aspect-video overflow-hidden" style="background:linear-gradient(135deg,#1a0a2e,#2d1b4e)">
-          <img src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=800&h=450&fit=crop&q=80" alt="Music" class="project-img w-full h-full object-cover opacity-50">
-          <div class="absolute inset-0" style="background:linear-gradient(135deg,rgba(168,85,247,0.25),rgba(0,0,0,0.5))"></div>
-          <div class="absolute bottom-4 left-4 flex items-end gap-1 h-8">
-            <div class="music-bar" style="animation-delay:0s;height:12px"></div><div class="music-bar" style="animation-delay:0.15s;height:20px"></div><div class="music-bar" style="animation-delay:0.3s;height:8px"></div><div class="music-bar" style="animation-delay:0.45s;height:24px"></div><div class="music-bar" style="animation-delay:0.6s;height:16px"></div><div class="music-bar" style="animation-delay:0.75s;height:10px"></div><div class="music-bar" style="animation-delay:0.9s;height:22px"></div>
-          </div>
-          <div class="absolute top-4 left-4 w-10 h-10 rounded-lg flex items-center justify-center" style="background:rgba(0,0,0,0.5);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.1)"><iconify-icon icon="lucide:music" class="text-purple-400 text-lg"></iconify-icon></div>
-          <div class="absolute bottom-3 right-4"><div class="w-8 h-8 rounded-full flex items-center justify-center" style="background:rgba(168,85,247,0.3);border:1px solid rgba(168,85,247,0.4)"><iconify-icon icon="lucide:play" class="text-white text-xs"></iconify-icon></div></div>
-          <div class="project-overlay absolute inset-0 flex items-center justify-center" style="background:rgba(0,0,0,0.7)"><div class="flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/20 text-xs font-semibold tracking-widest uppercase text-white"><iconify-icon icon="lucide:external-link" class="text-sm"></iconify-icon> Live Demo</div></div>
-        </div>
-        <div class="p-7">
-          <div class="flex items-center gap-2 mb-3"><iconify-icon icon="lucide:headphones" class="text-purple-400"></iconify-icon><span class="text-xs font-medium tracking-widest uppercase text-neutral-500">Music Player</span></div>
-          <h3 class="text-xl font-semibold group-hover:text-red-400 transition-colors">Music Web App</h3>
-          <p class="mt-2 text-sm font-light text-neutral-400 leading-relaxed">Interactive music player with playlist management and immersive audio experience.</p>
-          <div class="mt-4 flex flex-wrap gap-2"><span class="px-2.5 py-1 rounded text-xs text-neutral-500 glass-light">HTML/CSS</span><span class="px-2.5 py-1 rounded text-xs text-neutral-500 glass-light">JavaScript</span><span class="px-2.5 py-1 rounded text-xs text-neutral-500 glass-light">Web Audio</span></div>
-        </div>
+      <a href="https://vignesh452006.github.io/MUSICAPP/" target="_blank" class="slide-card-r d6 project-card group block rounded-2xl overflow-hidden card-spotlight cursor-pointer" style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05)">
+        <div class="relative aspect-video overflow-hidden" style="background:linear-gradient(135deg,#1a0a2e,#2d1b4e)"><img src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=800&h=450&fit=crop&q=80" alt="Music" class="project-img w-full h-full object-cover opacity-50"><div class="absolute inset-0" style="background:linear-gradient(135deg,rgba(168,85,247,0.25),rgba(0,0,0,0.5))"></div><div class="absolute bottom-4 left-4 flex items-end gap-1 h-8"><div class="music-bar" style="animation-delay:0s;height:12px"></div><div class="music-bar" style="animation-delay:0.15s;height:20px"></div><div class="music-bar" style="animation-delay:0.3s;height:8px"></div><div class="music-bar" style="animation-delay:0.45s;height:24px"></div><div class="music-bar" style="animation-delay:0.6s;height:16px"></div><div class="music-bar" style="animation-delay:0.75s;height:10px"></div><div class="music-bar" style="animation-delay:0.9s;height:22px"></div></div><div class="absolute top-4 left-4 w-10 h-10 rounded-lg flex items-center justify-center" style="background:rgba(0,0,0,0.5);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.1)"><iconify-icon icon="lucide:music" class="text-purple-400 text-lg"></iconify-icon></div><div class="absolute bottom-3 right-4"><div class="w-8 h-8 rounded-full flex items-center justify-center" style="background:rgba(168,85,247,0.3);border:1px solid rgba(168,85,247,0.4)"><iconify-icon icon="lucide:play" class="text-white text-xs"></iconify-icon></div></div><div class="project-overlay absolute inset-0 flex items-center justify-center" style="background:rgba(0,0,0,0.7)"><div class="flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/20 text-xs font-semibold tracking-widest uppercase text-white"><iconify-icon icon="lucide:external-link" class="text-sm"></iconify-icon> Live Demo</div></div></div>
+        <div class="p-7"><div class="flex items-center gap-2 mb-3"><iconify-icon icon="lucide:headphones" class="text-purple-400"></iconify-icon><span class="text-xs font-medium tracking-widest uppercase text-neutral-500">Music Player</span></div><h3 class="text-xl font-semibold group-hover:text-red-400 transition-colors">Music Web App</h3><p class="mt-2 text-sm font-light text-neutral-400 leading-relaxed">Interactive music player with playlist management.</p><div class="mt-4 flex flex-wrap gap-2"><span class="px-2.5 py-1 rounded text-xs text-neutral-500 glass-light">HTML/CSS</span><span class="px-2.5 py-1 rounded text-xs text-neutral-500 glass-light">JavaScript</span></div></div>
       </a>
-      <!-- AI Chatbot -->
-      <a href="https://vignesh452006.github.io/MUSICAPP/" target="_blank" class="anim-scroll-s sd4 project-card group block rounded-2xl overflow-hidden card-spotlight cursor-pointer" style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05)">
-        <div class="relative aspect-video overflow-hidden" style="background:linear-gradient(135deg,#0a1a0a,#0d2818)">
-          <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=450&fit=crop&q=80" alt="AI Chatbot" class="project-img w-full h-full object-cover opacity-50">
-          <div class="absolute inset-0" style="background:linear-gradient(135deg,rgba(34,197,94,0.2),rgba(0,0,0,0.5))"></div>
-          <div class="absolute bottom-4 left-4 right-4 space-y-2">
-            <div class="flex justify-end"><div class="px-3 py-1.5 rounded-xl rounded-br-sm text-xs text-white max-w-[70%]" style="background:rgba(34,197,94,0.3);border:1px solid rgba(34,197,94,0.3)">Hello! How can I help?</div></div>
-            <div class="flex justify-start"><div class="px-3 py-1.5 rounded-xl rounded-bl-sm text-xs text-white/80 max-w-[70%]" style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.1)">Tell me about AI...</div></div>
-          </div>
-          <div class="absolute top-4 left-4 w-10 h-10 rounded-lg flex items-center justify-center" style="background:rgba(0,0,0,0.5);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.1)"><iconify-icon icon="lucide:bot" class="text-green-400 text-lg" style="animation:bot-pulse 2s ease-in-out infinite"></iconify-icon></div>
-          <div class="project-overlay absolute inset-0 flex items-center justify-center" style="background:rgba(0,0,0,0.7)"><div class="flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/20 text-xs font-semibold tracking-widest uppercase text-white"><iconify-icon icon="lucide:external-link" class="text-sm"></iconify-icon> Live Demo</div></div>
-        </div>
-        <div class="p-7">
-          <div class="flex items-center gap-2 mb-3"><iconify-icon icon="lucide:message-circle" class="text-green-400"></iconify-icon><span class="text-xs font-medium tracking-widest uppercase text-neutral-500">AI / NLP</span></div>
-          <h3 class="text-xl font-semibold group-hover:text-red-400 transition-colors">AI Chatbot</h3>
-          <p class="mt-2 text-sm font-light text-neutral-400 leading-relaxed">Generative AI-powered chatbot with contextual conversation capabilities.</p>
-          <div class="mt-4 flex flex-wrap gap-2"><span class="px-2.5 py-1 rounded text-xs text-neutral-500 glass-light">Python</span><span class="px-2.5 py-1 rounded text-xs text-neutral-500 glass-light">GenAI</span><span class="px-2.5 py-1 rounded text-xs text-neutral-500 glass-light">NLP</span></div>
-        </div>
+      <a href="https://vignesh452006.github.io/MUSICAPP/" target="_blank" class="slide-card-l d7 project-card group block rounded-2xl overflow-hidden card-spotlight cursor-pointer" style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05)">
+        <div class="relative aspect-video overflow-hidden" style="background:linear-gradient(135deg,#0a1a0a,#0d2818)"><img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=450&fit=crop&q=80" alt="AI Chatbot" class="project-img w-full h-full object-cover opacity-50"><div class="absolute inset-0" style="background:linear-gradient(135deg,rgba(34,197,94,0.2),rgba(0,0,0,0.5))"></div><div class="absolute bottom-4 left-4 right-4 space-y-2"><div class="flex justify-end"><div class="px-3 py-1.5 rounded-xl rounded-br-sm text-xs text-white max-w-[70%]" style="background:rgba(34,197,94,0.3);border:1px solid rgba(34,197,94,0.3)">Hello! How can I help?</div></div><div class="flex justify-start"><div class="px-3 py-1.5 rounded-xl rounded-bl-sm text-xs text-white/80 max-w-[70%]" style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.1)">Tell me about AI...</div></div></div><div class="absolute top-4 left-4 w-10 h-10 rounded-lg flex items-center justify-center" style="background:rgba(0,0,0,0.5);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.1)"><iconify-icon icon="lucide:bot" class="text-green-400 text-lg" style="animation:bot-pulse 2s ease-in-out infinite"></iconify-icon></div><div class="project-overlay absolute inset-0 flex items-center justify-center" style="background:rgba(0,0,0,0.7)"><div class="flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/20 text-xs font-semibold tracking-widest uppercase text-white"><iconify-icon icon="lucide:external-link" class="text-sm"></iconify-icon> Live Demo</div></div></div>
+        <div class="p-7"><div class="flex items-center gap-2 mb-3"><iconify-icon icon="lucide:message-circle" class="text-green-400"></iconify-icon><span class="text-xs font-medium tracking-widest uppercase text-neutral-500">AI / NLP</span></div><h3 class="text-xl font-semibold group-hover:text-red-400 transition-colors">AI Chatbot</h3><p class="mt-2 text-sm font-light text-neutral-400 leading-relaxed">Generative AI-powered chatbot with contextual conversations.</p><div class="mt-4 flex flex-wrap gap-2"><span class="px-2.5 py-1 rounded text-xs text-neutral-500 glass-light">Python</span><span class="px-2.5 py-1 rounded text-xs text-neutral-500 glass-light">GenAI</span></div></div>
       </a>
-      <!-- Quiz Master -->
-      <a href="https://vignesh452006.github.io/Ecommerce/" target="_blank" class="anim-scroll-s sd5 project-card group block rounded-2xl overflow-hidden card-spotlight cursor-pointer" style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05)">
-        <div class="relative aspect-video overflow-hidden" style="background:linear-gradient(135deg,#1a1a0a,#2a2006)">
-          <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&h=450&fit=crop&q=80" alt="Quiz" class="project-img w-full h-full object-cover opacity-50">
-          <div class="absolute inset-0" style="background:linear-gradient(135deg,rgba(251,191,36,0.2),rgba(0,0,0,0.5))"></div>
-          <div class="absolute top-4 left-4 w-10 h-10 rounded-lg flex items-center justify-center" style="background:rgba(0,0,0,0.5);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.1)"><iconify-icon icon="lucide:help-circle" class="text-yellow-400 text-lg" style="animation:quiz-glow 2s ease-in-out infinite"></iconify-icon></div>
-          <div class="absolute bottom-4 left-4 right-4 space-y-2">
-            <div class="text-xs font-medium text-yellow-300" style="text-shadow:0 0 10px rgba(251,191,36,0.5)">Q: What is the capital of France?</div>
-            <div class="grid grid-cols-2 gap-1.5">
-              <div class="px-2.5 py-1.5 rounded-lg text-[10px] text-center" style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.1)">A. London</div>
-              <div class="px-2.5 py-1.5 rounded-lg text-[10px] text-center text-green-300" style="background:rgba(34,197,94,0.2);border:1px solid rgba(34,197,94,0.3)">B. Paris ✓</div>
-              <div class="px-2.5 py-1.5 rounded-lg text-[10px] text-center" style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.1)">C. Berlin</div>
-              <div class="px-2.5 py-1.5 rounded-lg text-[10px] text-center" style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.1)">D. Rome</div>
-            </div>
-          </div>
-          <div class="project-overlay absolute inset-0 flex items-center justify-center" style="background:rgba(0,0,0,0.7)"><div class="flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/20 text-xs font-semibold tracking-widest uppercase text-white"><iconify-icon icon="lucide:external-link" class="text-sm"></iconify-icon> Live Demo</div></div>
-        </div>
-        <div class="p-7">
-          <div class="flex items-center gap-2 mb-3"><iconify-icon icon="lucide:trophy" class="text-yellow-400"></iconify-icon><span class="text-xs font-medium tracking-widest uppercase text-neutral-500">Quiz App</span></div>
-          <h3 class="text-xl font-semibold group-hover:text-red-400 transition-colors">Quiz Master</h3>
-          <p class="mt-2 text-sm font-light text-neutral-400 leading-relaxed">Interactive quiz platform with categories, real-time scoring, and feedback.</p>
-          <div class="mt-4 flex flex-wrap gap-2"><span class="px-2.5 py-1 rounded text-xs text-neutral-500 glass-light">HTML/CSS</span><span class="px-2.5 py-1 rounded text-xs text-neutral-500 glass-light">JavaScript</span><span class="px-2.5 py-1 rounded text-xs text-neutral-500 glass-light">Python</span></div>
-        </div>
+      <a href="https://vignesh452006.github.io/Ecommerce/" target="_blank" class="slide-card-b d8 project-card group block rounded-2xl overflow-hidden card-spotlight cursor-pointer" style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05)">
+        <div class="relative aspect-video overflow-hidden" style="background:linear-gradient(135deg,#1a1a0a,#2a2006)"><img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&h=450&fit=crop&q=80" alt="Quiz" class="project-img w-full h-full object-cover opacity-50"><div class="absolute inset-0" style="background:linear-gradient(135deg,rgba(251,191,36,0.2),rgba(0,0,0,0.5))"></div><div class="absolute top-4 left-4 w-10 h-10 rounded-lg flex items-center justify-center" style="background:rgba(0,0,0,0.5);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.1)"><iconify-icon icon="lucide:help-circle" class="text-yellow-400 text-lg" style="animation:quiz-glow 2s ease-in-out infinite"></iconify-icon></div><div class="absolute bottom-4 left-4 right-4"><div class="text-xs font-medium text-yellow-300 mb-2" style="text-shadow:0 0 10px rgba(251,191,36,0.5)">Q: Capital of France?</div><div class="grid grid-cols-2 gap-1.5"><div class="px-2.5 py-1.5 rounded-lg text-[10px] text-center" style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.1)">London</div><div class="px-2.5 py-1.5 rounded-lg text-[10px] text-center text-green-300" style="background:rgba(34,197,94,0.2);border:1px solid rgba(34,197,94,0.3)">Paris ✓</div><div class="px-2.5 py-1.5 rounded-lg text-[10px] text-center" style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.1)">Berlin</div><div class="px-2.5 py-1.5 rounded-lg text-[10px] text-center" style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.1)">Rome</div></div></div><div class="project-overlay absolute inset-0 flex items-center justify-center" style="background:rgba(0,0,0,0.7)"><div class="flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/20 text-xs font-semibold tracking-widest uppercase text-white"><iconify-icon icon="lucide:external-link" class="text-sm"></iconify-icon> Live Demo</div></div></div>
+        <div class="p-7"><div class="flex items-center gap-2 mb-3"><iconify-icon icon="lucide:trophy" class="text-yellow-400"></iconify-icon><span class="text-xs font-medium tracking-widest uppercase text-neutral-500">Quiz App</span></div><h3 class="text-xl font-semibold group-hover:text-red-400 transition-colors">Quiz Master</h3><p class="mt-2 text-sm font-light text-neutral-400 leading-relaxed">Interactive quiz with categories, scoring, and feedback.</p><div class="mt-4 flex flex-wrap gap-2"><span class="px-2.5 py-1 rounded text-xs text-neutral-500 glass-light">HTML/CSS</span><span class="px-2.5 py-1 rounded text-xs text-neutral-500 glass-light">JavaScript</span></div></div>
       </a>
-      <!-- More Coming -->
-      <div class="anim-scroll-s sd6 project-card group rounded-2xl overflow-hidden flex items-center justify-center min-h-[420px] cursor-pointer" style="background:rgba(255,255,255,0.01);border:1px dashed rgba(255,255,255,0.08)">
-        <div class="text-center p-8">
-          <div class="w-16 h-16 rounded-2xl mx-auto flex items-center justify-center" style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06)"><iconify-icon icon="lucide:plus" class="text-2xl text-neutral-600"></iconify-icon></div>
-          <h3 class="mt-5 text-lg font-semibold text-neutral-500">More Coming Soon</h3>
-          <p class="mt-2 text-sm text-neutral-600 font-light">New projects in development...</p>
-        </div>
-      </div>
+      <div class="slide-card-r d9 project-card group rounded-2xl overflow-hidden flex items-center justify-center min-h-[420px] cursor-pointer" style="background:rgba(255,255,255,0.01);border:1px dashed rgba(255,255,255,0.08)"><div class="text-center p-8"><div class="w-16 h-16 rounded-2xl mx-auto flex items-center justify-center" style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06)"><iconify-icon icon="lucide:plus" class="text-2xl text-neutral-600"></iconify-icon></div><h3 class="mt-5 text-lg font-semibold text-neutral-500">More Coming Soon</h3><p class="mt-2 text-sm text-neutral-600 font-light">New projects in development...</p></div></div>
     </div>
   </div>
 </section>
 
-<!-- ==================== SKILLS ==================== -->
-<section id="skills" class="observe-section relative z-10 py-28 px-8">
+<!-- ===== SKILLS ===== -->
+<section id="skills" class="observe-section relative z-10 py-28 px-8 overflow-hidden">
+  <div class="geo-shape geo-circle" style="top:20%;right:3%;animation:geo-float-1 22s ease-in-out infinite"></div>
   <div class="max-w-7xl mx-auto">
-    <div class="text-center mb-16">
-      <span class="anim-scroll text-xs font-medium tracking-widest uppercase text-red-500">Expertise</span>
-      <h2 class="anim-scroll sd1 mt-4 text-3xl md:text-5xl font-bold" style="letter-spacing:-0.025em">Skills & <span class="gradient-text">Technologies</span></h2>
-    </div>
+    <div class="text-center mb-16"><span class="slide-flip d1 text-xs font-medium tracking-widest uppercase text-red-500">Expertise</span><h2 class="slide-flip d2 mt-4 text-3xl md:text-5xl font-bold" style="letter-spacing:-0.025em">Skills & <span class="gradient-text">Technologies</span></h2></div>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-      <div class="anim-scroll sd1 card-spotlight rounded-2xl p-7 group transition-all duration-300 hover:-translate-y-1 cursor-pointer" style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05)">
-        <div class="w-12 h-12 rounded-xl flex items-center justify-center" style="background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.15)"><iconify-icon icon="lucide:code-2" class="text-red-500 text-xl"></iconify-icon></div>
-        <h3 class="mt-5 text-lg font-semibold">Programming</h3>
-        <div class="mt-4 space-y-3">
-          <div><div class="flex justify-between text-sm mb-1"><span class="text-neutral-400">Python</span><span class="text-red-400 font-medium">90%</span></div><div class="h-1.5 rounded-full overflow-hidden" style="background:rgba(255,255,255,0.05)"><div class="h-full rounded-full" style="width:90%;background:linear-gradient(90deg,#ef4444,#dc2626)"></div></div></div>
-          <div><div class="flex justify-between text-sm mb-1"><span class="text-neutral-400">Java</span><span class="text-red-400 font-medium">90%</span></div><div class="h-1.5 rounded-full overflow-hidden" style="background:rgba(255,255,255,0.05)"><div class="h-full rounded-full" style="width:90%;background:linear-gradient(90deg,#ef4444,#dc2626)"></div></div></div>
-          <div><div class="flex justify-between text-sm mb-1"><span class="text-neutral-400">C</span><span class="text-red-400 font-medium">90%</span></div><div class="h-1.5 rounded-full overflow-hidden" style="background:rgba(255,255,255,0.05)"><div class="h-full rounded-full" style="width:90%;background:linear-gradient(90deg,#ef4444,#dc2626)"></div></div></div>
-          <div><div class="flex justify-between text-sm mb-1"><span class="text-neutral-400">JavaScript</span><span class="text-red-400 font-medium">70%</span></div><div class="h-1.5 rounded-full overflow-hidden" style="background:rgba(255,255,255,0.05)"><div class="h-full rounded-full" style="width:70%;background:linear-gradient(90deg,#ef4444,#dc2626)"></div></div></div>
-        </div>
-      </div>
-      <div class="anim-scroll sd2 card-spotlight rounded-2xl p-7 group transition-all duration-300 hover:-translate-y-1 cursor-pointer" style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05)">
-        <div class="w-12 h-12 rounded-xl flex items-center justify-center" style="background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.15)"><iconify-icon icon="lucide:layout" class="text-blue-400 text-xl"></iconify-icon></div>
-        <h3 class="mt-5 text-lg font-semibold">Frontend</h3>
-        <div class="mt-4 space-y-3">
-          <div><div class="flex justify-between text-sm mb-1"><span class="text-neutral-400">HTML / CSS</span><span class="text-blue-400 font-medium">90%</span></div><div class="h-1.5 rounded-full overflow-hidden" style="background:rgba(255,255,255,0.05)"><div class="h-full rounded-full" style="width:90%;background:linear-gradient(90deg,#3b82f6,#2563eb)"></div></div></div>
-          <div><div class="flex justify-between text-sm mb-1"><span class="text-neutral-400">Tailwind CSS</span><span class="text-blue-400 font-medium">80%</span></div><div class="h-1.5 rounded-full overflow-hidden" style="background:rgba(255,255,255,0.05)"><div class="h-full rounded-full" style="width:80%;background:linear-gradient(90deg,#3b82f6,#2563eb)"></div></div></div>
-          <div><div class="flex justify-between text-sm mb-1"><span class="text-neutral-400">React</span><span class="text-blue-400 font-medium">75%</span></div><div class="h-1.5 rounded-full overflow-hidden" style="background:rgba(255,255,255,0.05)"><div class="h-full rounded-full" style="width:75%;background:linear-gradient(90deg,#3b82f6,#2563eb)"></div></div></div>
-          <div><div class="flex justify-between text-sm mb-1"><span class="text-neutral-400">Responsive</span><span class="text-blue-400 font-medium">88%</span></div><div class="h-1.5 rounded-full overflow-hidden" style="background:rgba(255,255,255,0.05)"><div class="h-full rounded-full" style="width:88%;background:linear-gradient(90deg,#3b82f6,#2563eb)"></div></div></div>
-        </div>
-      </div>
-      <div class="anim-scroll sd3 card-spotlight rounded-2xl p-7 group transition-all duration-300 hover:-translate-y-1 cursor-pointer" style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05)">
-        <div class="w-12 h-12 rounded-xl flex items-center justify-center" style="background:rgba(168,85,247,0.08);border:1px solid rgba(168,85,247,0.15)"><iconify-icon icon="lucide:server" class="text-purple-400 text-xl"></iconify-icon></div>
-        <h3 class="mt-5 text-lg font-semibold">Backend & AI</h3>
-        <div class="mt-4 space-y-3">
-          <div><div class="flex justify-between text-sm mb-1"><span class="text-neutral-400">Flask</span><span class="text-purple-400 font-medium">90%</span></div><div class="h-1.5 rounded-full overflow-hidden" style="background:rgba(255,255,255,0.05)"><div class="h-full rounded-full" style="width:90%;background:linear-gradient(90deg,#a855f7,#7c3aed)"></div></div></div>
-          <div><div class="flex justify-between text-sm mb-1"><span class="text-neutral-400">MySQL</span><span class="text-purple-400 font-medium">78%</span></div><div class="h-1.5 rounded-full overflow-hidden" style="background:rgba(255,255,255,0.05)"><div class="h-full rounded-full" style="width:78%;background:linear-gradient(90deg,#a855f7,#7c3aed)"></div></div></div>
-          <div><div class="flex justify-between text-sm mb-1"><span class="text-neutral-400">GenAI / NLP</span><span class="text-purple-400 font-medium">80%</span></div><div class="h-1.5 rounded-full overflow-hidden" style="background:rgba(255,255,255,0.05)"><div class="h-full rounded-full" style="width:80%;background:linear-gradient(90deg,#a855f7,#7c3aed)"></div></div></div>
-          <div><div class="flex justify-between text-sm mb-1"><span class="text-neutral-400">Data Science</span><span class="text-purple-400 font-medium">75%</span></div><div class="h-1.5 rounded-full overflow-hidden" style="background:rgba(255,255,255,0.05)"><div class="h-full rounded-full" style="width:75%;background:linear-gradient(90deg,#a855f7,#7c3aed)"></div></div></div>
-        </div>
-      </div>
-      <div class="anim-scroll sd4 card-spotlight rounded-2xl p-7 group transition-all duration-300 hover:-translate-y-1 cursor-pointer" style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05)">
-        <div class="w-12 h-12 rounded-xl flex items-center justify-center" style="background:rgba(251,191,36,0.08);border:1px solid rgba(251,191,36,0.15)"><iconify-icon icon="lucide:wrench" class="text-yellow-400 text-xl"></iconify-icon></div>
-        <h3 class="mt-5 text-lg font-semibold">Tools & Other</h3>
-        <div class="mt-4 flex flex-wrap gap-2">
-          <span class="skill-tag px-3 py-1.5 rounded-lg text-xs text-neutral-400 glass-light cursor-pointer">Git & GitHub</span>
-          <span class="skill-tag px-3 py-1.5 rounded-lg text-xs text-neutral-400 glass-light cursor-pointer">VS Code</span>
-          <span class="skill-tag px-3 py-1.5 rounded-lg text-xs text-neutral-400 glass-light cursor-pointer">Postman</span>
-          <span class="skill-tag px-3 py-1.5 rounded-lg text-xs text-neutral-400 glass-light cursor-pointer">Figma</span>
-          <span class="skill-tag px-3 py-1.5 rounded-lg text-xs text-neutral-400 glass-light cursor-pointer">REST APIs</span>
-          <span class="skill-tag px-3 py-1.5 rounded-lg text-xs text-neutral-400 glass-light cursor-pointer">SQL</span>
-          <span class="skill-tag px-3 py-1.5 rounded-lg text-xs text-neutral-400 glass-light cursor-pointer">Digital Marketing</span>
-          <span class="skill-tag px-3 py-1.5 rounded-lg text-xs text-neutral-400 glass-light cursor-pointer">Process Mining</span>
-        </div>
-      </div>
+      <div class="slide-card-l d3 card-spotlight rounded-2xl p-7 group transition-all duration-300 hover:-translate-y-1 cursor-pointer" style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05)"><div class="w-12 h-12 rounded-xl flex items-center justify-center" style="background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.15)"><iconify-icon icon="lucide:code-2" class="text-red-500 text-xl"></iconify-icon></div><h3 class="mt-5 text-lg font-semibold">Programming</h3><div class="mt-4 space-y-3"><div><div class="flex justify-between text-sm mb-1"><span class="text-neutral-400">Python</span><span class="text-red-400 font-medium">90%</span></div><div class="h-1.5 rounded-full overflow-hidden" style="background:rgba(255,255,255,0.05)"><div class="h-full rounded-full" style="width:90%;background:linear-gradient(90deg,#ef4444,#dc2626)"></div></div></div><div><div class="flex justify-between text-sm mb-1"><span class="text-neutral-400">Java</span><span class="text-red-400 font-medium">90%</span></div><div class="h-1.5 rounded-full overflow-hidden" style="background:rgba(255,255,255,0.05)"><div class="h-full rounded-full" style="width:90%;background:linear-gradient(90deg,#ef4444,#dc2626)"></div></div></div><div><div class="flex justify-between text-sm mb-1"><span class="text-neutral-400">C</span><span class="text-red-400 font-medium">90%</span></div><div class="h-1.5 rounded-full overflow-hidden" style="background:rgba(255,255,255,0.05)"><div class="h-full rounded-full" style="width:90%;background:linear-gradient(90deg,#ef4444,#dc2626)"></div></div></div><div><div class="flex justify-between text-sm mb-1"><span class="text-neutral-400">JavaScript</span><span class="text-red-400 font-medium">70%</span></div><div class="h-1.5 rounded-full overflow-hidden" style="background:rgba(255,255,255,0.05)"><div class="h-full rounded-full" style="width:70%;background:linear-gradient(90deg,#ef4444,#dc2626)"></div></div></div></div></div>
+      <div class="slide-card-b d4 card-spotlight rounded-2xl p-7 group transition-all duration-300 hover:-translate-y-1 cursor-pointer" style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05)"><div class="w-12 h-12 rounded-xl flex items-center justify-center" style="background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.15)"><iconify-icon icon="lucide:layout" class="text-blue-400 text-xl"></iconify-icon></div><h3 class="mt-5 text-lg font-semibold">Frontend</h3><div class="mt-4 space-y-3"><div><div class="flex justify-between text-sm mb-1"><span class="text-neutral-400">HTML / CSS</span><span class="text-blue-400 font-medium">90%</span></div><div class="h-1.5 rounded-full overflow-hidden" style="background:rgba(255,255,255,0.05)"><div class="h-full rounded-full" style="width:90%;background:linear-gradient(90deg,#3b82f6,#2563eb)"></div></div></div><div><div class="flex justify-between text-sm mb-1"><span class="text-neutral-400">Tailwind</span><span class="text-blue-400 font-medium">80%</span></div><div class="h-1.5 rounded-full overflow-hidden" style="background:rgba(255,255,255,0.05)"><div class="h-full rounded-full" style="width:80%;background:linear-gradient(90deg,#3b82f6,#2563eb)"></div></div></div><div><div class="flex justify-between text-sm mb-1"><span class="text-neutral-400">React</span><span class="text-blue-400 font-medium">75%</span></div><div class="h-1.5 rounded-full overflow-hidden" style="background:rgba(255,255,255,0.05)"><div class="h-full rounded-full" style="width:75%;background:linear-gradient(90deg,#3b82f6,#2563eb)"></div></div></div><div><div class="flex justify-between text-sm mb-1"><span class="text-neutral-400">Responsive</span><span class="text-blue-400 font-medium">88%</span></div><div class="h-1.5 rounded-full overflow-hidden" style="background:rgba(255,255,255,0.05)"><div class="h-full rounded-full" style="width:88%;background:linear-gradient(90deg,#3b82f6,#2563eb)"></div></div></div></div></div>
+      <div class="slide-card-r d5 card-spotlight rounded-2xl p-7 group transition-all duration-300 hover:-translate-y-1 cursor-pointer" style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05)"><div class="w-12 h-12 rounded-xl flex items-center justify-center" style="background:rgba(168,85,247,0.08);border:1px solid rgba(168,85,247,0.15)"><iconify-icon icon="lucide:server" class="text-purple-400 text-xl"></iconify-icon></div><h3 class="mt-5 text-lg font-semibold">Backend & AI</h3><div class="mt-4 space-y-3"><div><div class="flex justify-between text-sm mb-1"><span class="text-neutral-400">Flask</span><span class="text-purple-400 font-medium">90%</span></div><div class="h-1.5 rounded-full overflow-hidden" style="background:rgba(255,255,255,0.05)"><div class="h-full rounded-full" style="width:90%;background:linear-gradient(90deg,#a855f7,#7c3aed)"></div></div></div><div><div class="flex justify-between text-sm mb-1"><span class="text-neutral-400">MySQL</span><span class="text-purple-400 font-medium">78%</span></div><div class="h-1.5 rounded-full overflow-hidden" style="background:rgba(255,255,255,0.05)"><div class="h-full rounded-full" style="width:78%;background:linear-gradient(90deg,#a855f7,#7c3aed)"></div></div></div><div><div class="flex justify-between text-sm mb-1"><span class="text-neutral-400">GenAI / NLP</span><span class="text-purple-400 font-medium">80%</span></div><div class="h-1.5 rounded-full overflow-hidden" style="background:rgba(255,255,255,0.05)"><div class="h-full rounded-full" style="width:80%;background:linear-gradient(90deg,#a855f7,#7c3aed)"></div></div></div><div><div class="flex justify-between text-sm mb-1"><span class="text-neutral-400">Data Science</span><span class="text-purple-400 font-medium">75%</span></div><div class="h-1.5 rounded-full overflow-hidden" style="background:rgba(255,255,255,0.05)"><div class="h-full rounded-full" style="width:75%;background:linear-gradient(90deg,#a855f7,#7c3aed)"></div></div></div></div></div>
+      <div class="slide-card-l d6 card-spotlight rounded-2xl p-7 group transition-all duration-300 hover:-translate-y-1 cursor-pointer" style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05)"><div class="w-12 h-12 rounded-xl flex items-center justify-center" style="background:rgba(251,191,36,0.08);border:1px solid rgba(251,191,36,0.15)"><iconify-icon icon="lucide:wrench" class="text-yellow-400 text-xl"></iconify-icon></div><h3 class="mt-5 text-lg font-semibold">Tools & Other</h3><div class="mt-4 flex flex-wrap gap-2"><span class="skill-tag px-3 py-1.5 rounded-lg text-xs text-neutral-400 glass-light cursor-pointer">Git & GitHub</span><span class="skill-tag px-3 py-1.5 rounded-lg text-xs text-neutral-400 glass-light cursor-pointer">VS Code</span><span class="skill-tag px-3 py-1.5 rounded-lg text-xs text-neutral-400 glass-light cursor-pointer">Postman</span><span class="skill-tag px-3 py-1.5 rounded-lg text-xs text-neutral-400 glass-light cursor-pointer">Figma</span><span class="skill-tag px-3 py-1.5 rounded-lg text-xs text-neutral-400 glass-light cursor-pointer">REST APIs</span><span class="skill-tag px-3 py-1.5 rounded-lg text-xs text-neutral-400 glass-light cursor-pointer">SQL</span><span class="skill-tag px-3 py-1.5 rounded-lg text-xs text-neutral-400 glass-light cursor-pointer">Digital Marketing</span><span class="skill-tag px-3 py-1.5 rounded-lg text-xs text-neutral-400 glass-light cursor-pointer">Process Mining</span></div></div>
     </div>
   </div>
 </section>
 
-<!-- ==================== CERTIFICATES ==================== -->
-<section id="certificates" class="observe-section relative z-10 py-28 px-8">
+<!-- ===== CERTIFICATES ===== -->
+<section id="certificates" class="observe-section relative z-10 py-28 px-8 overflow-hidden">
+  <div class="geo-shape geo-cross" style="bottom:5%;left:5%;animation:geo-float-2 20s ease-in-out infinite"></div>
   <div class="max-w-7xl mx-auto">
-    <div class="text-center mb-16">
-      <span class="anim-scroll text-xs font-medium tracking-widest uppercase text-red-500">Credentials</span>
-      <h2 class="anim-scroll sd1 mt-4 text-3xl md:text-5xl font-bold" style="letter-spacing:-0.025em">Certificates & <span class="gradient-text">Achievements</span></h2>
-    </div>
+    <div class="text-center mb-16"><span class="slide-3d-scale d1 text-xs font-medium tracking-widest uppercase text-red-500">Credentials</span><h2 class="slide-3d-scale d2 mt-4 text-3xl md:text-5xl font-bold" style="letter-spacing:-0.025em">Certificates & <span class="gradient-text">Achievements</span></h2></div>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-      <div class="anim-scroll-s sd1 cert-card rounded-2xl overflow-hidden cursor-pointer group" style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05)" onclick="openCertModal(this)"><div class="relative aspect-[4/3] overflow-hidden"><img src="https://z-cdn-media.chatglm.cn/files/4111626f-7e32-498f-b221-27b150edef82.jpg?auth_key=1875148099-6cdf4300c9f94578909ae65676b20039-0-8df42f4b4e3424827beac252c1d5b832" alt="Python" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"><div class="absolute top-3 right-3"><span class="px-2.5 py-1 rounded-full text-xs font-medium" style="background:rgba(239,68,68,0.15);color:#ef4444;border:1px solid rgba(239,68,68,0.2)">93.52%</span></div></div><div class="p-5"><h3 class="text-sm font-semibold">Python for Data Science</h3><p class="text-xs text-neutral-500 mt-1">Saylor Academy • Feb 2026</p></div></div>
-      <div class="anim-scroll-s sd2 cert-card rounded-2xl overflow-hidden cursor-pointer group" style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05)" onclick="openCertModal(this)"><div class="relative aspect-[4/3] overflow-hidden"><img src="https://z-cdn-media.chatglm.cn/files/572bc6d7-1bef-4ca4-bf0f-c147fa08bdf8.jpg?auth_key=1875148099-3e836898a0164dd0b881a97dc0a1b580-0-fd0e974df4a09c35a3b7f793d13bbc02" alt="Critical Thinking" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"></div><div class="p-5"><h3 class="text-sm font-semibold">Critical Thinking in the AI Era</h3><p class="text-xs text-neutral-500 mt-1">HP LIFE • Feb 2026</p></div></div>
-      <div class="anim-scroll-s sd3 cert-card rounded-2xl overflow-hidden cursor-pointer group" style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05)" onclick="openCertModal(this)"><div class="relative aspect-[4/3] overflow-hidden"><img src="https://z-cdn-media.chatglm.cn/files/bedabb58-3592-4831-9d76-2b7f03289778.jpg?auth_key=1875148099-ce68738144d245e0ac758fcae3ff5152-0-01d4e2e6efd6dd5696e6119d1ff1399b" alt="GenAI" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"><div class="absolute top-3 right-3"><span class="px-2.5 py-1 rounded-full text-xs font-medium" style="background:rgba(168,85,247,0.15);color:#a855f7;border:1px solid rgba(168,85,247,0.2)">Bootcamp</span></div></div><div class="p-5"><h3 class="text-sm font-semibold">Generative AI Chatbot</h3><p class="text-xs text-neutral-500 mt-1">DevTown • Mar 2026</p></div></div>
-      <div class="anim-scroll-s sd4 cert-card rounded-2xl overflow-hidden cursor-pointer group" style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05)" onclick="openCertModal(this)"><div class="relative aspect-[4/3] overflow-hidden"><img src="https://z-cdn-media.chatglm.cn/files/e7d8d797-76dd-4b92-9e7d-9f871c9e8dc0.jpg?auth_key=1875148099-9cef5e1310a94579a1e14ef6e1067ce6-0-91ce06f14f1cbaa5111ece4af205844d" alt="Celonis" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"></div><div class="p-5"><h3 class="text-sm font-semibold">Process Mining Fundamentals</h3><p class="text-xs text-neutral-500 mt-1">Celonis Academy • Sep 2024</p></div></div>
-      <div class="anim-scroll-s sd5 cert-card rounded-2xl overflow-hidden cursor-pointer group" style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05)" onclick="openCertModal(this)"><div class="relative aspect-[4/3] overflow-hidden"><img src="https://z-cdn-media.chatglm.cn/files/dd7bc571-217c-4900-a75c-d343a45a2d0a.jpg?auth_key=1875148099-d528a9a8a29d46399799d18744e19d90-0-8470412f01861949edf08026674f2e65" alt="MongoDB" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"><div class="absolute top-3 right-3"><span class="px-2.5 py-1 rounded-full text-xs font-medium" style="background:rgba(34,197,94,0.15);color:#22c55e;border:1px solid rgba(34,197,94,0.2)">Verified</span></div></div><div class="p-5"><h3 class="text-sm font-semibold">MongoDB Basics for Students</h3><p class="text-xs text-neutral-500 mt-1">MongoDB • Aug 2025</p></div></div>
-      <div class="anim-scroll-s sd6 cert-card rounded-2xl overflow-hidden cursor-pointer group" style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05)" onclick="openCertModal(this)"><div class="relative aspect-[4/3] overflow-hidden"><img src="https://z-cdn-media.chatglm.cn/files/1dcb2533-9971-4279-80b3-22c44cfd2d84.png?auth_key=1875148099-605bbb38a75245259df9e0f44dcf9218-0-454009bce5ce2078ae81c26f1a48ddf5" alt="Full Stack" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"><div class="absolute top-3 right-3"><span class="px-2.5 py-1 rounded-full text-xs font-medium" style="background:rgba(59,130,246,0.15);color:#3b82f6;border:1px solid rgba(59,130,246,0.2)">30 Days</span></div></div><div class="p-5"><h3 class="text-sm font-semibold">Full Stack Development Masterclass</h3><p class="text-xs text-neutral-500 mt-1">NoviTech R&D • Mar 2026</p></div></div>
-      <div class="anim-scroll-s sd7 cert-card rounded-2xl overflow-hidden cursor-pointer group" style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05)" onclick="openCertModal(this)"><div class="relative aspect-[4/3] overflow-hidden"><img src="https://z-cdn-media.chatglm.cn/files/0747f71a-3a6b-4de3-8b2b-7b041db0c27a.png?auth_key=1875148099-60272d8bd9434a1cb6fae1f088b76724-0-e2f3ac6bc10c3a1e7776a40c6e8a8631" alt="Digital Marketing" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"></div><div class="p-5"><h3 class="text-sm font-semibold">Digital Marketing Strategy</h3><p class="text-xs text-neutral-500 mt-1">Simplilearn • Feb 2026</p></div></div>
-      <div class="anim-scroll-s sd8 cert-card rounded-2xl overflow-hidden cursor-pointer group" style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05)" onclick="openCertModal(this)"><div class="relative aspect-[4/3] overflow-hidden"><img src="https://z-cdn-media.chatglm.cn/files/d69e98cb-4917-4f68-b08b-32b3098dd1c1.jpg?auth_key=1875148099-6b971fb58acb4dc9bc441b185794dc17-0-71122872901d072303fded9cb318e46d" alt="Internship" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"><div class="absolute top-3 right-3"><span class="px-2.5 py-1 rounded-full text-xs font-medium" style="background:rgba(251,191,36,0.15);color:#fbbf24;border:1px solid rgba(251,191,36,0.2)">Internship</span></div></div><div class="p-5"><h3 class="text-sm font-semibold">Python Full Stack Internship</h3><p class="text-xs text-neutral-500 mt-1">Deep Dive Technologies • Dec 2025</p></div></div>
+      <div class="slide-card-l d3 cert-card rounded-2xl overflow-hidden cursor-pointer group" style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05)" onclick="openCertModal(this)"><div class="relative aspect-[4/3] overflow-hidden"><img src="https://z-cdn-media.chatglm.cn/files/4111626f-7e32-498f-b221-27b150edef82.jpg?auth_key=1875148099-6cdf4300c9f94578909ae65676b20039-0-8df42f4b4e3424827beac252c1d5b832" alt="Python" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"><div class="absolute top-3 right-3"><span class="px-2.5 py-1 rounded-full text-xs font-medium" style="background:rgba(239,68,68,0.15);color:#ef4444;border:1px solid rgba(239,68,68,0.2)">93.52%</span></div></div><div class="p-5"><h3 class="text-sm font-semibold">Python for Data Science</h3><p class="text-xs text-neutral-500 mt-1">Saylor Academy • Feb 2026</p></div></div>
+      <div class="slide-card-b d4 cert-card rounded-2xl overflow-hidden cursor-pointer group" style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05)" onclick="openCertModal(this)"><div class="relative aspect-[4/3] overflow-hidden"><img src="https://z-cdn-media.chatglm.cn/files/572bc6d7-1bef-4ca4-bf0f-c147fa08bdf8.jpg?auth_key=1875148099-3e836898a0164dd0b881a97dc0a1b580-0-fd0e974df4a09c35a3b7f793d13bbc02" alt="Critical Thinking" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"></div><div class="p-5"><h3 class="text-sm font-semibold">Critical Thinking in AI Era</h3><p class="text-xs text-neutral-500 mt-1">HP LIFE • Feb 2026</p></div></div>
+      <div class="slide-card-r d5 cert-card rounded-2xl overflow-hidden cursor-pointer group" style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05)" onclick="openCertModal(this)"><div class="relative aspect-[4/3] overflow-hidden"><img src="https://z-cdn-media.chatglm.cn/files/bedabb58-3592-4831-9d76-2b7f03289778.jpg?auth_key=1875148099-ce68738144d245e0ac758fcae3ff5152-0-01d4e2e6efd6dd5696e6119d1ff1399b" alt="GenAI" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"><div class="absolute top-3 right-3"><span class="px-2.5 py-1 rounded-full text-xs font-medium" style="background:rgba(168,85,247,0.15);color:#a855f7;border:1px solid rgba(168,85,247,0.2)">Bootcamp</span></div></div><div class="p-5"><h3 class="text-sm font-semibold">Generative AI Chatbot</h3><p class="text-xs text-neutral-500 mt-1">DevTown • Mar 2026</p></div></div>
+      <div class="slide-card-r d6 cert-card rounded-2xl overflow-hidden cursor-pointer group" style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05)" onclick="openCertModal(this)"><div class="relative aspect-[4/3] overflow-hidden"><img src="https://z-cdn-media.chatglm.cn/files/e7d8d797-76dd-4b92-9e7d-9f871c9e8dc0.jpg?auth_key=1875148099-9cef5e1310a94579a1e14ef6e1067ce6-0-91ce06f14f1cbaa5111ece4af205844d" alt="Celonis" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"></div><div class="p-5"><h3 class="text-sm font-semibold">Process Mining Fundamentals</h3><p class="text-xs text-neutral-500 mt-1">Celonis Academy • Sep 2024</p></div></div>
+      <div class="slide-card-l d7 cert-card rounded-2xl overflow-hidden cursor-pointer group" style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05)" onclick="openCertModal(this)"><div class="relative aspect-[4/3] overflow-hidden"><img src="https://z-cdn-media.chatglm.cn/files/dd7bc571-217c-4900-a75c-d343a45a2d0a.jpg?auth_key=1875148099-d528a9a8a29d46399799d18744e19d90-0-8470412f01861949edf08026674f2e65" alt="MongoDB" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"><div class="absolute top-3 right-3"><span class="px-2.5 py-1 rounded-full text-xs font-medium" style="background:rgba(34,197,94,0.15);color:#22c55e;border:1px solid rgba(34,197,94,0.2)">Verified</span></div></div><div class="p-5"><h3 class="text-sm font-semibold">MongoDB Basics</h3><p class="text-xs text-neutral-500 mt-1">MongoDB • Aug 2025</p></div></div>
+      <div class="slide-card-b d8 cert-card rounded-2xl overflow-hidden cursor-pointer group" style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05)" onclick="openCertModal(this)"><div class="relative aspect-[4/3] overflow-hidden"><img src="https://z-cdn-media.chatglm.cn/files/1dcb2533-9971-4279-80b3-22c44cfd2d84.png?auth_key=1875148099-605bbb38a75245259df9e0f44dcf9218-0-454009bce5ce2078ae81c26f1a48ddf5" alt="Full Stack" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"><div class="absolute top-3 right-3"><span class="px-2.5 py-1 rounded-full text-xs font-medium" style="background:rgba(59,130,246,0.15);color:#3b82f6;border:1px solid rgba(59,130,246,0.2)">30 Days</span></div></div><div class="p-5"><h3 class="text-sm font-semibold">Full Stack Masterclass</h3><p class="text-xs text-neutral-500 mt-1">NoviTech R&D • Mar 2026</p></div></div>
+      <div class="slide-card-l d9 cert-card rounded-2xl overflow-hidden cursor-pointer group" style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05)" onclick="openCertModal(this)"><div class="relative aspect-[4/3] overflow-hidden"><img src="https://z-cdn-media.chatglm.cn/files/0747f71a-3a6b-4de3-8b2b-7b041db0c27a.png?auth_key=1875148099-60272d8bd9434a1cb6fae1f088b76724-0-e2f3ac6bc10c3a1e7776a40c6e8a8631" alt="Digital Marketing" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"></div><div class="p-5"><h3 class="text-sm font-semibold">Digital Marketing Strategy</h3><p class="text-xs text-neutral-500 mt-1">Simplilearn • Feb 2026</p></div></div>
+      <div class="slide-card-r d10 cert-card rounded-2xl overflow-hidden cursor-pointer group" style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05)" onclick="openCertModal(this)"><div class="relative aspect-[4/3] overflow-hidden"><img src="https://z-cdn-media.chatglm.cn/files/d69e98cb-4917-4f68-b08b-32b3098dd1c1.jpg?auth_key=1875148099-6b971fb58acb4dc9bc441b185794dc17-0-71122872901d072303fded9cb318e46d" alt="Internship" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"><div class="absolute top-3 right-3"><span class="px-2.5 py-1 rounded-full text-xs font-medium" style="background:rgba(251,191,36,0.15);color:#fbbf24;border:1px solid rgba(251,191,36,0.2)">Internship</span></div></div><div class="p-5"><h3 class="text-sm font-semibold">Python Full Stack Internship</h3><p class="text-xs text-neutral-500 mt-1">Deep Dive Technologies • Dec 2025</p></div></div>
     </div>
   </div>
 </section>
 
-<!-- Certificate Modal -->
-<div id="cert-modal" class="fixed inset-0 z-[100] flex items-center justify-center p-8 opacity-0 pointer-events-none transition-opacity duration-300" style="background:rgba(0,0,0,0.92);backdrop-filter:blur(8px)">
-  <button onclick="closeCertModal()" class="absolute top-6 right-8 text-neutral-400 hover:text-white transition-colors z-10 cursor-pointer"><iconify-icon icon="lucide:x" class="text-3xl"></iconify-icon></button>
-  <img id="cert-modal-img" src="" alt="Certificate" class="max-w-full max-h-[90vh] rounded-xl object-contain" style="box-shadow:0 25px 80px rgba(0,0,0,0.5)">
-</div>
+<!-- Cert Modal -->
+<div id="cert-modal" class="fixed inset-0 z-[100] flex items-center justify-center p-8 opacity-0 pointer-events-none transition-opacity duration-300" style="background:rgba(0,0,0,0.92);backdrop-filter:blur(8px)"><button onclick="closeCertModal()" class="absolute top-6 right-8 text-neutral-400 hover:text-white transition-colors z-10 cursor-pointer"><iconify-icon icon="lucide:x" class="text-3xl"></iconify-icon></button><img id="cert-modal-img" src="" alt="Certificate" class="max-w-full max-h-[90vh] rounded-xl object-contain" style="box-shadow:0 25px 80px rgba(0,0,0,0.5)"></div>
 
-<!-- ==================== EDUCATION ==================== -->
-<section id="education" class="observe-section relative z-10 py-28 px-8">
+<!-- ===== EDUCATION ===== -->
+<section id="education" class="observe-section relative z-10 py-28 px-8 overflow-hidden">
+  <div class="geo-shape geo-diamond" style="top:30%;left:8%;animation:geo-float-3 18s ease-in-out infinite"></div>
   <div class="max-w-5xl mx-auto">
-    <div class="text-center mb-16">
-      <span class="anim-scroll text-xs font-medium tracking-widest uppercase text-red-500">Background</span>
-      <h2 class="anim-scroll sd1 mt-4 text-3xl md:text-5xl font-bold" style="letter-spacing:-0.025em">Education & <span class="gradient-text">Training</span></h2>
-    </div>
+    <div class="text-center mb-16"><span class="slide-3d-up d1 text-xs font-medium tracking-widest uppercase text-red-500">Background</span><h2 class="slide-3d-up d2 mt-4 text-3xl md:text-5xl font-bold" style="letter-spacing:-0.025em">Education & <span class="gradient-text">Training</span></h2></div>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-      <div class="anim-scroll sd1 edu-card rounded-2xl p-8 relative overflow-hidden cursor-pointer" style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05)">
-        <div class="absolute top-0 right-0 w-32 h-32 opacity-5"><iconify-icon icon="lucide:graduation-cap" class="text-[128px] text-white"></iconify-icon></div>
-        <div class="relative z-10">
-          <div class="w-14 h-14 rounded-2xl flex items-center justify-center mb-6" style="background:linear-gradient(135deg,rgba(239,68,68,0.1),rgba(239,68,68,0.05));border:1px solid rgba(239,68,68,0.15)"><iconify-icon icon="lucide:graduation-cap" class="text-red-500 text-2xl"></iconify-icon></div>
-          <span class="text-xs font-medium tracking-widest uppercase text-red-500">Higher Education</span>
-          <h3 class="mt-3 text-xl font-bold" style="font-family:'Space Grotesk',sans-serif;letter-spacing:-0.02em">PSRR College of Engineering</h3>
-          <p class="text-sm text-neutral-500 mt-1 flex items-center gap-1.5"><iconify-icon icon="lucide:map-pin" class="text-xs"></iconify-icon> Sivakasi, Tamil Nadu</p>
-          <div class="mt-5 pt-5" style="border-top:1px solid rgba(255,255,255,0.05)">
-            <div class="flex items-center justify-between"><span class="text-sm text-neutral-400">CGPA</span><span class="text-2xl font-bold gradient-text" style="font-family:'Space Grotesk',sans-serif">8.5</span></div>
-            <div class="mt-3 h-2 rounded-full overflow-hidden" style="background:rgba(255,255,255,0.05)"><div class="h-full rounded-full" style="width:85%;background:linear-gradient(90deg,#ef4444,#dc2626,#991b1b);animation:shimmer 2s linear infinite;background-size:200% 100%"></div></div>
-          </div>
-        </div>
-      </div>
-      <div class="anim-scroll sd2 edu-card rounded-2xl p-8 relative overflow-hidden cursor-pointer" style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05)">
-        <div class="absolute top-0 right-0 w-32 h-32 opacity-5"><iconify-icon icon="lucide:school" class="text-[128px] text-white"></iconify-icon></div>
-        <div class="relative z-10">
-          <div class="w-14 h-14 rounded-2xl flex items-center justify-center mb-6" style="background:linear-gradient(135deg,rgba(59,130,246,0.1),rgba(59,130,246,0.05));border:1px solid rgba(59,130,246,0.15)"><iconify-icon icon="lucide:school" class="text-blue-400 text-2xl"></iconify-icon></div>
-          <span class="text-xs font-medium tracking-widest uppercase text-blue-400">Secondary Education</span>
-          <h3 class="mt-3 text-xl font-bold" style="font-family:'Space Grotesk',sans-serif;letter-spacing:-0.02em">PACM Boys Hr. Sec. School</h3>
-          <p class="text-sm text-neutral-500 mt-1 flex items-center gap-1.5"><iconify-icon icon="lucide:map-pin" class="text-xs"></iconify-icon> Rajapalayam, Tamil Nadu</p>
-          <div class="mt-5 pt-5" style="border-top:1px solid rgba(255,255,255,0.05)">
-            <div class="flex items-center justify-between"><span class="text-sm text-neutral-400">HSC (+2) Score</span><span class="text-2xl font-bold gradient-text-cool" style="font-family:'Space Grotesk',sans-serif">83%</span></div>
-            <div class="mt-3 h-2 rounded-full overflow-hidden" style="background:rgba(255,255,255,0.05)"><div class="h-full rounded-full" style="width:83%;background:linear-gradient(90deg,#3b82f6,#2563eb);animation:shimmer 2s linear infinite;background-size:200% 100%"></div></div>
-          </div>
-        </div>
-      </div>
+      <div class="slide-3d-left d3 edu-card rounded-2xl p-8 relative overflow-hidden cursor-pointer" style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05)"><div class="absolute top-0 right-0 w-32 h-32 opacity-5"><iconify-icon icon="lucide:graduation-cap" class="text-[128px] text-white"></iconify-icon></div><div class="relative z-10"><div class="w-14 h-14 rounded-2xl flex items-center justify-center mb-6" style="background:linear-gradient(135deg,rgba(239,68,68,0.1),rgba(239,68,68,0.05));border:1px solid rgba(239,68,68,0.15)"><iconify-icon icon="lucide:graduation-cap" class="text-red-500 text-2xl"></iconify-icon></div><span class="text-xs font-medium tracking-widest uppercase text-red-500">Higher Education</span><h3 class="mt-3 text-xl font-bold" style="font-family:'Space Grotesk',sans-serif">PSRR College of Engineering</h3><p class="text-sm text-neutral-500 mt-1 flex items-center gap-1.5"><iconify-icon icon="lucide:map-pin" class="text-xs"></iconify-icon> Sivakasi, Tamil Nadu</p><div class="mt-5 pt-5" style="border-top:1px solid rgba(255,255,255,0.05)"><div class="flex items-center justify-between"><span class="text-sm text-neutral-400">CGPA</span><span class="text-2xl font-bold gradient-text" style="font-family:'Space Grotesk',sans-serif">8.5</span></div><div class="mt-3 h-2 rounded-full overflow-hidden" style="background:rgba(255,255,255,0.05)"><div class="h-full rounded-full" style="width:85%;background:linear-gradient(90deg,#ef4444,#dc2626,#991b1b);animation:shimmer 2s linear infinite;background-size:200% 100%"></div></div></div></div></div>
+      <div class="slide-3d-right d4 edu-card rounded-2xl p-8 relative overflow-hidden cursor-pointer" style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05)"><div class="absolute top-0 right-0 w-32 h-32 opacity-5"><iconify-icon icon="lucide:school" class="text-[128px] text-white"></iconify-icon></div><div class="relative z-10"><div class="w-14 h-14 rounded-2xl flex items-center justify-center mb-6" style="background:linear-gradient(135deg,rgba(59,130,246,0.1),rgba(59,130,246,0.05));border:1px solid rgba(59,130,246,0.15)"><iconify-icon icon="lucide:school" class="text-blue-400 text-2xl"></iconify-icon></div><span class="text-xs font-medium tracking-widest uppercase text-blue-400">Secondary Education</span><h3 class="mt-3 text-xl font-bold" style="font-family:'Space Grotesk',sans-serif">PACM Boys Hr. Sec. School</h3><p class="text-sm text-neutral-500 mt-1 flex items-center gap-1.5"><iconify-icon icon="lucide:map-pin" class="text-xs"></iconify-icon> Rajapalayam, Tamil Nadu</p><div class="mt-5 pt-5" style="border-top:1px solid rgba(255,255,255,0.05)"><div class="flex items-center justify-between"><span class="text-sm text-neutral-400">HSC (+2)</span><span class="text-2xl font-bold gradient-text-cool" style="font-family:'Space Grotesk',sans-serif">83%</span></div><div class="mt-3 h-2 rounded-full overflow-hidden" style="background:rgba(255,255,255,0.05)"><div class="h-full rounded-full" style="width:83%;background:linear-gradient(90deg,#3b82f6,#2563eb);animation:shimmer 2s linear infinite;background-size:200% 100%"></div></div></div></div></div>
     </div>
-    <div class="anim-scroll sd3 mt-8 edu-card rounded-2xl p-8 cursor-pointer" style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05)">
-      <div class="flex flex-col md:flex-row items-start md:items-center gap-6">
-        <div class="w-14 h-14 rounded-2xl flex items-center justify-center shrink-0" style="background:linear-gradient(135deg,rgba(251,191,36,0.1),rgba(251,191,36,0.05));border:1px solid rgba(251,191,36,0.15)"><iconify-icon icon="lucide:briefcase" class="text-yellow-400 text-2xl"></iconify-icon></div>
-        <div class="flex-1">
-          <span class="text-xs font-medium tracking-widest uppercase text-yellow-400">Internship Experience</span>
-          <h3 class="mt-2 text-xl font-bold" style="font-family:'Space Grotesk',sans-serif">Python Full Stack Development Intern</h3>
-          <p class="text-sm text-neutral-500 mt-1">Deep Dive Technologies • Dec 15–31, 2025</p>
-          <p class="mt-3 text-sm font-light text-neutral-400 leading-relaxed">15-day intensive internship working on HTML, CSS, JavaScript, and Python, delivering a Quiz Web Application.</p>
-        </div>
-      </div>
-    </div>
+    <div class="slide-3d-up d5 mt-8 edu-card rounded-2xl p-8 cursor-pointer" style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05)"><div class="flex flex-col md:flex-row items-start md:items-center gap-6"><div class="w-14 h-14 rounded-2xl flex items-center justify-center shrink-0" style="background:linear-gradient(135deg,rgba(251,191,36,0.1),rgba(251,191,36,0.05));border:1px solid rgba(251,191,36,0.15)"><iconify-icon icon="lucide:briefcase" class="text-yellow-400 text-2xl"></iconify-icon></div><div class="flex-1"><span class="text-xs font-medium tracking-widest uppercase text-yellow-400">Internship</span><h3 class="mt-2 text-xl font-bold" style="font-family:'Space Grotesk',sans-serif">Python Full Stack Development Intern</h3><p class="text-sm text-neutral-500 mt-1">Deep Dive Technologies • Dec 2025</p><p class="mt-3 text-sm font-light text-neutral-400 leading-relaxed">15-day internship working on HTML, CSS, JavaScript, and Python.</p></div></div></div>
   </div>
 </section>
 
-<!-- ==================== CONTACT ==================== -->
-<section id="contact" class="observe-section relative z-10 py-28 px-8">
+<!-- ===== CONTACT ===== -->
+<section id="contact" class="observe-section relative z-10 py-28 px-8 overflow-hidden">
+  <div class="geo-shape geo-circle" style="bottom:15%;right:5%;animation:geo-float-1 16s ease-in-out infinite"></div>
   <div class="max-w-7xl mx-auto">
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-20">
       <div>
-        <span class="anim-scroll text-xs font-medium tracking-widest uppercase text-red-500">Let's Talk</span>
-        <h2 class="anim-scroll sd1 mt-4 text-3xl md:text-5xl font-bold" style="letter-spacing:-0.025em">Have a project<br>in <span class="gradient-text">mind</span>?</h2>
-        <p class="anim-scroll sd2 mt-6 text-base font-light text-neutral-400 leading-relaxed">I'm always open to new opportunities. Drop me a message and I'll respond within 24 hours.</p>
-        <div class="anim-scroll sd3 mt-10 space-y-5">
-          <a href="mailto:chandranvignesh2006@gmail.com" class="flex items-center gap-4 group cursor-pointer">
-            <div class="w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300 group-hover:border-red-500/30" style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.05)"><iconify-icon icon="lucide:mail" class="text-neutral-400 group-hover:text-red-500 transition-colors text-lg"></iconify-icon></div>
-            <div><div class="text-xs text-neutral-500 tracking-wider uppercase">Email</div><div class="text-sm text-neutral-300 group-hover:text-white transition-colors mt-0.5">chandranvignesh2006@gmail.com</div></div>
-          </a>
-          <div class="flex items-center gap-4">
-            <div class="w-12 h-12 rounded-xl flex items-center justify-center" style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.05)"><iconify-icon icon="lucide:map-pin" class="text-neutral-400 text-lg"></iconify-icon></div>
-            <div><div class="text-xs text-neutral-500 tracking-wider uppercase">Location</div><div class="text-sm text-neutral-300 mt-0.5">Rajapalayam, Tamil Nadu 626108</div></div>
-          </div>
-          <div class="flex items-center gap-4">
-            <div class="w-12 h-12 rounded-xl flex items-center justify-center" style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.05)"><iconify-icon icon="lucide:clock" class="text-neutral-400 text-lg"></iconify-icon></div>
-            <div><div class="text-xs text-neutral-500 tracking-wider uppercase">Status</div><div class="text-sm text-neutral-300 mt-0.5 flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-green-500 pulse-dot"></span> Open to Work</div></div>
-          </div>
+        <span class="slide-3d-right d1 text-xs font-medium tracking-widest uppercase text-red-500">Let's Talk</span>
+        <h2 class="slide-3d-right d2 mt-4 text-3xl md:text-5xl font-bold" style="letter-spacing:-0.025em">Have a project<br>in <span class="gradient-text">mind</span>?</h2>
+        <p class="slide-3d-right d3 mt-6 text-base font-light text-neutral-400 leading-relaxed">Drop me a message and I'll respond within 24 hours.</p>
+        <div class="slide-3d-right d4 mt-10 space-y-5">
+          <a href="mailto:chandranvignesh2006@gmail.com" class="flex items-center gap-4 group cursor-pointer"><div class="w-12 h-12 rounded-xl flex items-center justify-center transition-all group-hover:border-red-500/30" style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.05)"><iconify-icon icon="lucide:mail" class="text-neutral-400 group-hover:text-red-500 transition-colors text-lg"></iconify-icon></div><div><div class="text-xs text-neutral-500 tracking-wider uppercase">Email</div><div class="text-sm text-neutral-300 group-hover:text-white transition-colors mt-0.5">chandranvignesh2006@gmail.com</div></div></a>
+          <div class="flex items-center gap-4"><div class="w-12 h-12 rounded-xl flex items-center justify-center" style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.05)"><iconify-icon icon="lucide:map-pin" class="text-neutral-400 text-lg"></iconify-icon></div><div><div class="text-xs text-neutral-500 tracking-wider uppercase">Location</div><div class="text-sm text-neutral-300 mt-0.5">Rajapalayam, Tamil Nadu 626108</div></div></div>
+          <div class="flex items-center gap-4"><div class="w-12 h-12 rounded-xl flex items-center justify-center" style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.05)"><iconify-icon icon="lucide:clock" class="text-neutral-400 text-lg"></iconify-icon></div><div><div class="text-xs text-neutral-500 tracking-wider uppercase">Status</div><div class="text-sm text-neutral-300 mt-0.5 flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-green-500 pulse-dot"></span> Open to Work</div></div></div>
         </div>
-        <div class="anim-scroll sd4 mt-10 flex items-center gap-4">
+        <div class="slide-3d-right d5 mt-10 flex items-center gap-4">
           <a href="https://github.com/vignesh452006" target="_blank" class="w-12 h-12 rounded-full flex items-center justify-center text-neutral-500 hover:text-white hover:border-white/20 transition-all cursor-pointer" style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.05)"><iconify-icon icon="lucide:github" class="text-lg"></iconify-icon></a>
           <a href="https://www.linkedin.com/in/vignesh-kumar-c-b91062353" target="_blank" class="w-12 h-12 rounded-full flex items-center justify-center text-neutral-500 hover:text-white hover:border-white/20 transition-all cursor-pointer" style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.05)"><iconify-icon icon="lucide:linkedin" class="text-lg"></iconify-icon></a>
         </div>
       </div>
-      <div class="anim-scroll sd2">
+      <div class="slide-3d-left d3">
         <form id="contact-form" class="p-8 md:p-10 rounded-2xl" style="backdrop-filter:blur(16px);background:rgba(10,10,10,0.7);border:1px solid rgba(255,255,255,0.06)">
           <div class="space-y-5">
-            <div class="grid grid-cols-2 gap-5">
-              <div><label class="block text-xs font-medium tracking-widest uppercase text-neutral-500 mb-2">Your Name</label><input type="text" name="name" required placeholder="John Doe" class="w-full bg-transparent px-4 py-3 rounded-xl text-sm text-white placeholder-neutral-600 outline-none transition-all" style="border:1px solid rgba(255,255,255,0.06)"></div>
-              <div><label class="block text-xs font-medium tracking-widest uppercase text-neutral-500 mb-2">Your Email</label><input type="email" name="email" required placeholder="john@example.com" class="w-full bg-transparent px-4 py-3 rounded-xl text-sm text-white placeholder-neutral-600 outline-none transition-all" style="border:1px solid rgba(255,255,255,0.06)"></div>
-            </div>
+            <div class="grid grid-cols-2 gap-5"><div><label class="block text-xs font-medium tracking-widest uppercase text-neutral-500 mb-2">Your Name</label><input type="text" name="name" required placeholder="John Doe" class="w-full bg-transparent px-4 py-3 rounded-xl text-sm text-white placeholder-neutral-600 outline-none transition-all" style="border:1px solid rgba(255,255,255,0.06)"></div><div><label class="block text-xs font-medium tracking-widest uppercase text-neutral-500 mb-2">Your Email</label><input type="email" name="email" required placeholder="john@example.com" class="w-full bg-transparent px-4 py-3 rounded-xl text-sm text-white placeholder-neutral-600 outline-none transition-all" style="border:1px solid rgba(255,255,255,0.06)"></div></div>
             <div><label class="block text-xs font-medium tracking-widest uppercase text-neutral-500 mb-2">Subject</label><input type="text" name="subject" required placeholder="Project Inquiry" class="w-full bg-transparent px-4 py-3 rounded-xl text-sm text-white placeholder-neutral-600 outline-none transition-all" style="border:1px solid rgba(255,255,255,0.06)"></div>
             <div><label class="block text-xs font-medium tracking-widest uppercase text-neutral-500 mb-2">Message</label><textarea name="message" required rows="6" placeholder="Tell me about your project..." class="w-full bg-transparent px-4 py-3 rounded-xl text-sm text-white placeholder-neutral-600 outline-none transition-all resize-none" style="border:1px solid rgba(255,255,255,0.06)"></textarea></div>
-            <input type="hidden" name="_subject" value="New Portfolio Message">
-            <input type="hidden" name="_captcha" value="false">
-            <input type="hidden" name="_template" value="table">
-            <button type="submit" id="submit-btn" class="w-full btn-fill magnetic-btn flex items-center justify-center gap-2 px-8 py-4 rounded-xl border border-white/10 text-xs font-semibold tracking-widest uppercase text-white transition-all disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer">
-              <iconify-icon icon="lucide:send" class="text-sm" id="submit-icon"></iconify-icon><span id="submit-text">Send Message</span>
-            </button>
-            <p class="text-xs text-neutral-600 text-center">Messages delivered directly to my inbox</p>
+            <input type="hidden" name="_subject" value="New Portfolio Message"><input type="hidden" name="_captcha" value="false"><input type="hidden" name="_template" value="table">
+            <button type="submit" id="submit-btn" class="w-full btn-fill magnetic-btn flex items-center justify-center gap-2 px-8 py-4 rounded-xl border border-white/10 text-xs font-semibold tracking-widest uppercase text-white transition-all disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"><iconify-icon icon="lucide:send" class="text-sm" id="submit-icon"></iconify-icon><span id="submit-text">Send Message</span></button>
+            <p class="text-xs text-neutral-600 text-center">Delivered directly to my inbox</p>
           </div>
         </form>
       </div>
@@ -721,22 +456,12 @@
   <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
     <div class="flex items-center gap-2.5"><div class="w-7 h-7 rounded-md flex items-center justify-center" style="background:linear-gradient(135deg,#ef4444,#991b1b)"><span class="text-white text-[10px] font-bold">VK"></span></div><span class="text-sm font-semibold tracking-tight text-neutral-400">VIGNESH KUMAR C</span></div>
     <p class="text-xs text-neutral-600">© 2025 Vignesh Kumar. Built with passion & code.</p>
-    <div class="flex items-center gap-6">
-      <a href="https://github.com/vignesh452006" target="_blank" class="text-xs text-neutral-500 hover:text-white transition-colors flex items-center gap-1.5 cursor-pointer"><iconify-icon icon="lucide:github" class="text-sm"></iconify-icon> GitHub</a>
-      <a href="https://www.linkedin.com/in/vignesh-kumar-c-b91062353" target="_blank" class="text-xs text-neutral-500 hover:text-white transition-colors flex items-center gap-1.5 cursor-pointer"><iconify-icon icon="lucide:linkedin" class="text-sm"></iconify-icon> LinkedIn</a>
-    </div>
+    <div class="flex items-center gap-6"><a href="https://github.com/vignesh452006" target="_blank" class="text-xs text-neutral-500 hover:text-white transition-colors flex items-center gap-1.5 cursor-pointer"><iconify-icon icon="lucide:github" class="text-sm"></iconify-icon> GitHub</a><a href="https://www.linkedin.com/in/vignesh-kumar-c-b91062353" target="_blank" class="text-xs text-neutral-500 hover:text-white transition-colors flex items-center gap-1.5 cursor-pointer"><iconify-icon icon="lucide:linkedin" class="text-sm"></iconify-icon> LinkedIn</a></div>
   </div>
 </footer>
 
-<!-- Toasts -->
-<div id="toast-success" class="toast fixed bottom-8 left-1/2 z-[200] flex items-center gap-3 px-6 py-4 rounded-xl" style="backdrop-filter:blur(16px);background:rgba(10,10,10,0.95);border:1px solid rgba(34,197,94,0.2)">
-  <div class="w-8 h-8 rounded-full flex items-center justify-center" style="background:rgba(34,197,94,0.1)"><iconify-icon icon="lucide:check" class="text-green-500"></iconify-icon></div>
-  <div><div class="text-sm font-medium text-white">Message Sent!</div><div class="text-xs text-neutral-400 mt-0.5">I'll get back to you soon.</div></div>
-</div>
-<div id="toast-error" class="toast fixed bottom-8 left-1/2 z-[200] flex items-center gap-3 px-6 py-4 rounded-xl" style="backdrop-filter:blur(16px);background:rgba(10,10,10,0.95);border:1px solid rgba(239,68,68,0.2)">
-  <div class="w-8 h-8 rounded-full flex items-center justify-center" style="background:rgba(239,68,68,0.1)"><iconify-icon icon="lucide:x" class="text-red-500"></iconify-icon></div>
-  <div><div class="text-sm font-medium text-white">Failed to Send</div><div class="text-xs text-neutral-400 mt-0.5">Please try again or email directly.</div></div>
-</div>
+<div id="toast-success" class="toast fixed bottom-8 left-1/2 z-[200] flex items-center gap-3 px-6 py-4 rounded-xl" style="backdrop-filter:blur(16px);background:rgba(10,10,10,0.95);border:1px solid rgba(34,197,94,0.2)"><div class="w-8 h-8 rounded-full flex items-center justify-center" style="background:rgba(34,197,94,0.1)"><iconify-icon icon="lucide:check" class="text-green-500"></iconify-icon></div><div><div class="text-sm font-medium text-white">Message Sent!</div><div class="text-xs text-neutral-400 mt-0.5">I'll get back to you soon.</div></div></div>
+<div id="toast-error" class="toast fixed bottom-8 left-1/2 z-[200] flex items-center gap-3 px-6 py-4 rounded-xl" style="backdrop-filter:blur(16px);background:rgba(10,10,10,0.95);border:1px solid rgba(239,68,68,0.2)"><div class="w-8 h-8 rounded-full flex items-center justify-center" style="background:rgba(239,68,68,0.1)"><iconify-icon icon="lucide:x" class="text-red-500"></iconify-icon></div><div><div class="text-sm font-medium text-white">Failed to Send</div><div class="text-xs text-neutral-400 mt-0.5">Please try again.</div></div></div>
 
 <!-- Three.js -->
 <script type="importmap">{"imports":{"three":"https://unpkg.com/three@0.160.0/build/three.module.js","three/addons/":"https://unpkg.com/three@0.160.0/examples/jsm/"}}</script>
@@ -745,80 +470,55 @@ import*as THREE from'three';import{EffectComposer}from'three/addons/postprocessi
 const canvas=document.getElementById('three-canvas'),scene=new THREE.Scene();scene.background=new THREE.Color(0x050505);scene.fog=new THREE.FogExp2(0x050505,0.018);
 const camera=new THREE.PerspectiveCamera(75,innerWidth/innerHeight,0.1,1000);camera.position.z=5;
 const renderer=new THREE.WebGLRenderer({canvas,antialias:true});renderer.setSize(innerWidth,innerHeight);renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.toneMapping=THREE.ReinhardToneMapping;
-const pCount=1800,pPos=new Float32Array(pCount*3),pCol=new Float32Array(pCount*3);
-for(let i=0;i<pCount;i++){pPos[i*3]=(Math.random()-.5)*25;pPos[i*3+1]=(Math.random()-.5)*25;pPos[i*3+2]=(Math.random()-.5)*25;const c=new THREE.Color(Math.random()>.92?0xef4444:Math.random()>.85?0x3b82f6:Math.random()>.8?0xa855f7:0xffffff);pCol[i*3]=c.r;pCol[i*3+1]=c.g;pCol[i*3+2]=c.b}
-const pGeo=new THREE.BufferGeometry();pGeo.setAttribute('position',new THREE.BufferAttribute(pPos,3));pGeo.setAttribute('color',new THREE.BufferAttribute(pCol,3));
-scene.add(new THREE.Points(pGeo,new THREE.PointsMaterial({size:0.04,vertexColors:true,transparent:true,opacity:0.5,sizeAttenuation:true})));
-const dCount=400,dPos=new Float32Array(dCount*3);for(let i=0;i<dCount*3;i++)dPos[i]=(Math.random()-.5)*18;
-const dGeo=new THREE.BufferGeometry();dGeo.setAttribute('position',new THREE.BufferAttribute(dPos,3));
-scene.add(new THREE.Points(dGeo,new THREE.PointsMaterial({size:0.012,color:0xffffff,transparent:true,opacity:0.15,sizeAttenuation:true})));
-scene.add(new THREE.AmbientLight(0x404040,0.5));const s1=new THREE.SpotLight(0xef4444,30);s1.position.set(5,5,5);s1.angle=0.3;s1.penumbra=0.5;scene.add(s1);
-const s2=new THREE.SpotLight(0x3b82f6,15);s2.position.set(-5,3,5);s2.angle=0.4;scene.add(s2);
-const composer=new EffectComposer(renderer);composer.addPass(new RenderPass(scene,camera));
-const bloom=new UnrealBloomPass(new THREE.Vector2(innerWidth,innerHeight),1.5,0.4,0.85);bloom.threshold=0;bloom.strength=1.8;bloom.radius=0.5;composer.addPass(bloom);
+const pC=2000,pP=new Float32Array(pC*3),pC2=new Float32Array(pC*3);
+for(let i=0;i<pC;i++){pP[i*3]=(Math.random()-.5)*28;pP[i*3+1]=(Math.random()-.5)*28;pP[i*3+2]=(Math.random()-.5)*28;const c=new THREE.Color(Math.random()>.93?0xef4444:Math.random()>.87?0x3b82f6:Math.random()>.82?0xa855f7:Math.random()>.78?0x22c55e:0xffffff);pC2[i*3]=c.r;pC2[i*3+1]=c.g;pC2[i*3+2]=c.b}
+const pG=new THREE.BufferGeometry();pG.setAttribute('position',new THREE.BufferAttribute(pP,3));pG.setAttribute('color',new THREE.BufferAttribute(pC2,3));
+scene.add(new THREE.Points(pG,new THREE.PointsMaterial({size:0.045,vertexColors:true,transparent:true,opacity:0.5,sizeAttenuation:true})));
+const dC=500,dP=new Float32Array(dC*3);for(let i=0;i<dC*3;i++)dP[i]=(Math.random()-.5)*20;
+const dG=new THREE.BufferGeometry();dG.setAttribute('position',new THREE.BufferAttribute(dP,3));
+scene.add(new THREE.Points(dG,new THREE.PointsMaterial({size:0.012,color:0xffffff,transparent:true,opacity:0.15,sizeAttenuation:true})));
+scene.add(new THREE.AmbientLight(0x404040,0.5));const s1=new THREE.SpotLight(0xef4444,30);s1.position.set(5,5,5);s1.angle=0.3;s1.penumbra=0.5;scene.add(s1);const s2=new THREE.SpotLight(0x3b82f6,15);s2.position.set(-5,3,5);s2.angle=0.4;scene.add(s2);const s3=new THREE.SpotLight(0xa855f7,10);s3.position.set(0,-5,5);s3.angle=0.5;scene.add(s3);
+const composer=new EffectComposer(renderer);composer.addPass(new RenderPass(scene,camera));const bloom=new UnrealBloomPass(new THREE.Vector2(innerWidth,innerHeight),1.5,0.4,0.85);bloom.threshold=0;bloom.strength=2;bloom.radius=0.5;composer.addPass(bloom);
 let mx=0,my=0;document.addEventListener('mousemove',e=>{mx=(e.clientX/innerWidth-.5)*2;my=(e.clientY/innerHeight-.5)*2});
-const clock=new THREE.Clock();(function animate(){requestAnimationFrame(animate);const t=clock.getElapsedTime();const pa=pGeo.attributes.position.array;
-for(let i=0;i<pCount;i++)pa[i*3+1]+=Math.sin(t*.5+pa[i*3]*0.5)*0.0008;pGeo.attributes.position.needsUpdate=true;
-pGeo.rotateY(0.0002);dGeo.rotateY(-0.00015);
-camera.position.x+=(mx*0.4-camera.position.x)*0.02;camera.position.y+=(-my*0.3-camera.position.y)*0.02;camera.lookAt(0,0,0);composer.render()})();
+const cl=new THREE.Clock();(function a(){requestAnimationFrame(a);const t=cl.getElapsedTime();const pa=pG.attributes.position.array;for(let i=0;i<pC;i++)pa[i*3+1]+=Math.sin(t*.4+pa[i*3]*0.3)*0.001;pG.attributes.position.needsUpdate=true;pG.rotateY(0.00025);dG.rotateY(-0.0002);camera.position.x+=(mx*0.5-camera.position.x)*0.02;camera.position.y+=(-my*0.4-camera.position.y)*0.02;camera.lookAt(0,0,0);composer.render()})();
 addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);composer.setSize(innerWidth,innerHeight)});
 </script>
 
 <script>
-// ===== CUSTOM CURSOR =====
+// ===== CURSOR =====
 const dot=document.getElementById('cursor-dot'),ring=document.getElementById('cursor-ring'),glow=document.getElementById('cursor-glow');
-let cx=0,cy=0,rx=0,ry=0,gx=0,gy=0;
-const trailEls=[];
-for(let i=0;i<8;i++){const t=document.createElement('div');t.className='cursor-trail';t.style.cssText=`position:fixed;width:${4-i*0.3}px;height:${4-i*0.3}px;background:rgba(239,68,68,${0.3-i*0.03});border-radius:50%;pointer-events:none;z-index:9997;transition:opacity .5s`;document.body.appendChild(t);trailEls.push({el:t,x:0,y:0})}
-const trailPos=[];
-for(let i=0;i<8;i++)trailPos.push({x:0,y:0});
+let cx=0,cy=0,rx=0,ry=0,gx=0,gy=0;const trEls=[],trP=[];
+for(let i=0;i<10;i++){const t=document.createElement('div');t.style.cssText=`position:fixed;width:${5-i*0.4}px;height:${5-i*0.4}px;background:rgba(239,68,68,${0.35-i*0.03});border-radius:50%;pointer-events:none;z-index:9997`;document.body.appendChild(t);trEls.push(t);trP.push({x:0,y:0})}
+document.addEventListener('mousemove',e=>{cx=e.clientX;cy=e.clientY;trP[0]={x:cx,y:cy}});
+(function aCursor(){rx+=(cx-rx)*.12;ry+=(cy-ry)*.12;gx+=(cx-gx)*.07;gy+=(cy-gy)*.07;dot.style.left=(cx-4)+'px';dot.style.top=(cy-4)+'px';ring.style.left=(rx-20)+'px';ring.style.top=(ry-20)+'px';glow.style.left=(gx-100)+'px';glow.style.top=(gy-100)+'px';for(let i=1;i<10;i++){trP[i].x+=(trP[i-1].x-trP[i].x)*.25;trP[i].y+=(trP[i-1].y-trP[i].y)*.25;trEls[i].style.left=trP[i].x+'px';trEls[i].style.top=trP[i].y+'px'}requestAnimationFrame(aCursor)})();
+document.querySelectorAll('a,button,.cursor-pointer,.project-card,.cert-card,.edu-card,.skill-tag,.card-spotlight').forEach(el=>{el.addEventListener('mouseenter',()=>{ring.classList.add('hover');dot.style.transform='scale(1.8)'});el.addEventListener('mouseleave',()=>{ring.classList.remove('hover');dot.style.transform='scale(1)'})});
+document.querySelectorAll('.magnetic-btn').forEach(b=>{b.addEventListener('mousemove',e=>{const r=b.getBoundingClientRect();b.style.transform=`translate(${(e.clientX-r.left-r.width/2)*.18}px,${(e.clientY-r.top-r.height/2)*.18}px)`});b.addEventListener('mouseleave',()=>{b.style.transform='translate(0,0)'})});
 
-document.addEventListener('mousemove',e=>{cx=e.clientX;cy=e.clientY;trailPos[0]={x:cx,y:cy}});
+// ===== HERO PARTICLES =====
+const hp=document.getElementById('hero-particles');const cols=['rgba(239,68,68,0.5)','rgba(59,130,246,0.5)','rgba(168,85,247,0.4)','rgba(251,191,36,0.4)','rgba(34,197,94,0.4)','rgba(236,72,153,0.4)'];
+for(let i=0;i<30;i++){const p=document.createElement('div');p.className='hero-particle';p.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*100}%;width:${2+Math.random()*4}px;height:${2+Math.random()*4}px;background:${cols[i%cols.length]};animation:float-particle ${4+Math.random()*8}s ease-in-out infinite;animation-delay:${Math.random()*6}s;box-shadow:0 0 ${6+Math.random()*12}px currentColor`;hp.appendChild(p)}
 
-function animateCursor(){
-  rx+=(cx-rx)*0.15;ry+=(cy-ry)*0.15;
-  gx+=(cx-gx)*0.08;gy+=(cy-gy)*0.08;
-  dot.style.left=(cx-4)+'px';dot.style.top=(cy-4)+'px';
-  ring.style.left=(rx-20)+'px';ring.style.top=(ry-20)+'px';
-  glow.style.left=(gx-100)+'px';glow.style.top=(gy-100)+'px';
-  for(let i=1;i<8;i++){trailPos[i].x+=(trailPos[i-1].x-trailPos[i].x)*0.3;trailPos[i].y+=(trailPos[i-1].y-trailPos[i].y)*0.3;
-    trailEls[i].el.style.left=trailPos[i].x+'px';trailEls[i].el.style.top=trailPos[i].y+'px'}
-  requestAnimationFrame(animateCursor)}
-animateCursor();
+// ===== CUBE 360° FIX =====
+const cubeScene=document.getElementById('cube-scene'),cube3d=document.getElementById('cube-3d');
+let cubeHovered=false;
+cubeScene.addEventListener('mouseenter',()=>{cubeHovered=true;cube3d.classList.remove('auto-rotate');cube3d.style.transition='transform 0.1s ease-out'});
+cubeScene.addEventListener('mousemove',e=>{if(!cubeHovered)return;const r=cubeScene.getBoundingClientRect();const x=(e.clientX-r.left-r.width/2)/r.width;const y=(e.clientY-r.top-r.height/2)/r.height;cube3d.style.transform=`rotateX(${-18+y*35}deg) rotateY(${x*35}deg)`});
+cubeScene.addEventListener('mouseleave',()=>{cubeHovered=false;cube3d.style.transition='none';cube3d.style.transform='';void cube3d.offsetHeight;cube3d.classList.add('auto-rotate')});
 
-// Hover effect on interactive elements
-document.querySelectorAll('a,button,.cursor-pointer,.project-card,.cert-card,.edu-card,.skill-tag,.card-spotlight').forEach(el=>{
-  el.addEventListener('mouseenter',()=>{ring.classList.add('hover');dot.style.transform='scale(1.5)'});
-  el.addEventListener('mouseleave',()=>{ring.classList.remove('hover');dot.style.transform='scale(1)'})});
+// ===== PROFILE IMAGE MOUSE TRACKING =====
+const profileImg=document.querySelector('.profile-anim-img');
+if(profileImg){const pw=profileImg.closest('.profile-anim-wrap');pw.addEventListener('mousemove',e=>{const r=pw.getBoundingClientRect();const x=(e.clientX-r.left-r.width/2)/r.width;const y=(e.clientY-r.top-r.height/2)/r.height;profileImg.style.animation='none';profileImg.style.transform=`perspective(800px) rotateY(${x*20}deg) rotateX(${-y*20}deg)`});pw.addEventListener('mouseleave',()=>{profileImg.style.animation='';profileImg.style.transform=''})}
 
-// Magnetic button effect
-document.querySelectorAll('.magnetic-btn').forEach(btn=>{
-  btn.addEventListener('mousemove',e=>{const r=btn.getBoundingClientRect();const x=e.clientX-r.left-r.width/2;const y=e.clientY-r.top-r.height/2;btn.style.transform=`translate(${x*0.15}px,${y*0.15}px)`});
-  btn.addEventListener('mouseleave',()=>{btn.style.transform='translate(0,0)'})});
-
-// ===== HERO FLOATING PARTICLES =====
-const hp=document.getElementById('hero-particles');
-for(let i=0;i<20;i++){const p=document.createElement('div');p.className='hero-particle';
-  const colors=['rgba(239,68,68,0.4)','rgba(59,130,246,0.4)','rgba(168,85,247,0.3)','rgba(251,191,36,0.3)','rgba(34,197,94,0.3)'];
-  p.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*100}%;width:${2+Math.random()*3}px;height:${2+Math.random()*3}px;background:${colors[Math.floor(Math.random()*colors.length)]};animation:float-particle ${4+Math.random()*6}s ease-in-out infinite;animation-delay:${Math.random()*5}s;box-shadow:0 0 ${4+Math.random()*8}px currentColor`;
-  hp.appendChild(p)}
-
-// ===== CUBE MOUSE INTERACTION =====
-const cubeWrapper=document.getElementById('cube-wrapper');
-if(cubeWrapper){cubeWrapper.addEventListener('mousemove',e=>{const r=cubeWrapper.getBoundingClientRect();const x=(e.clientX-r.left-r.width/2)/r.width;const y=(e.clientY-r.top-r.height/2)/r.height;
-  const cube=document.getElementById('cube-3d');cube.style.animation='none';cube.style.transform=`rotateX(${-20+y*30}deg) rotateY(${x*30}deg)`});
-  cubeWrapper.addEventListener('mouseleave',()=>{const cube=document.getElementById('cube-3d');cube.style.animation='';cube.style.transform=''})}
-
-// ===== SCROLL ANIMATIONS =====
-const obs=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting)en.target.classList.add('section-visible')})},{threshold:0.08,rootMargin:'0px 0px -40px 0px'});
+// ===== SCROLL OBSERVER =====
+const obs=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting)en.target.classList.add('section-visible')})},{threshold:0.06,rootMargin:'0px 0px -30px 0px'});
 document.querySelectorAll('.observe-section').forEach(s=>obs.observe(s));
 
 // ===== CARD SPOTLIGHT =====
 document.querySelectorAll('.card-spotlight').forEach(c=>{c.addEventListener('mousemove',e=>{const r=c.getBoundingClientRect();c.style.setProperty('--mouse-x',(e.clientX-r.left)+'px');c.style.setProperty('--mouse-y',(e.clientY-r.top)+'px')})});
 
 // ===== ACTIVE NAV =====
-const secs=document.querySelectorAll('section[id]'),nLinks=document.querySelectorAll('.nav-link');
-addEventListener('scroll',()=>{let cur='';secs.forEach(s=>{if(scrollY>=s.offsetTop-120)cur=s.id});nLinks.forEach(l=>{l.classList.toggle('active',l.getAttribute('href')==='#'+cur)})});
+const secs=document.querySelectorAll('section[id]'),nL=document.querySelectorAll('.nav-link');
+addEventListener('scroll',()=>{let c='';secs.forEach(s=>{if(scrollY>=s.offsetTop-120)c=s.id});nL.forEach(l=>{l.classList.toggle('active',l.getAttribute('href')==='#'+c)})});
 const nb=document.getElementById('navbar');addEventListener('scroll',()=>{nb.style.background=scrollY>50?'rgba(5,5,5,0.95)':'rgba(5,5,5,0.7)'});
 
 // ===== CERT MODAL =====
@@ -828,19 +528,12 @@ document.getElementById('cert-modal').addEventListener('click',e=>{if(e.target==
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeCertModal()});
 
 // ===== CONTACT FORM =====
-const form=document.getElementById('contact-form'),submitBtn=document.getElementById('submit-btn'),submitText=document.getElementById('submit-text'),submitIcon=document.getElementById('submit-icon');
-form.addEventListener('submit',async e=>{
-  e.preventDefault();submitBtn.disabled=true;submitText.textContent='Sending...';submitIcon.setAttribute('icon','lucide:loader-2');submitIcon.style.animation='spin-slow 1s linear infinite';
-  try{const fd=new FormData(form);const data=Object.fromEntries(fd);
-    const res=await fetch('https://formsubmit.co/ajax/chandranvignesh2006@gmail.com',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(data)});
-    if(res.ok){document.getElementById('toast-success').classList.add('show');form.reset()}else{document.getElementById('toast-error').classList.add('show')}
-  }catch(err){document.getElementById('toast-error').classList.add('show')}
-  submitBtn.disabled=false;submitText.textContent='Send Message';submitIcon.setAttribute('icon','lucide:send');submitIcon.style.animation='';
-  setTimeout(()=>{document.getElementById('toast-success').classList.remove('show');document.getElementById('toast-error').classList.remove('show')},4000);
-});
+const form=document.getElementById('contact-form'),sBtn=document.getElementById('submit-btn'),sTxt=document.getElementById('submit-text'),sIco=document.getElementById('submit-icon');
+form.addEventListener('submit',async e=>{e.preventDefault();sBtn.disabled=true;sTxt.textContent='Sending...';sIco.setAttribute('icon','lucide:loader-2');sIco.style.animation='spin-slow 1s linear infinite';
+try{const d=Object.fromEntries(new FormData(form));const r=await fetch('https://formsubmit.co/ajax/chandranvignesh2006@gmail.com',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(d)});if(r.ok){document.getElementById('toast-success').classList.add('show');form.reset()}else document.getElementById('toast-error').classList.add('show')}catch(e){document.getElementById('toast-error').classList.add('show')}
+sBtn.disabled=false;sTxt.textContent='Send Message';sIco.setAttribute('icon','lucide:send');sIco.style.animation='';setTimeout(()=>{document.getElementById('toast-success').classList.remove('show');document.getElementById('toast-error').classList.remove('show')},4000)});
 
-// Hide cursor on mobile
-if('ontouchstart' in window){dot.style.display='none';ring.style.display='none';glow.style.display='none';trailEls.forEach(t=>t.el.style.display='none');document.body.style.cursor='auto'}
+if('ontouchstart' in window){dot.style.display='none';ring.style.display='none';glow.style.display='none';trEls.forEach(t=>t.style.display='none');document.body.style.cursor='auto'}
 </script>
 </body>
 </html>
